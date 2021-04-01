@@ -66,6 +66,7 @@ function Sidebar({ routes, rtlActive, logo, toggleSidebar }) {
       );
     }
   }
+
   return (
     <BackgroundColorContext.Consumer>
       {({ color }) => (
@@ -91,7 +92,7 @@ function Sidebar({ routes, rtlActive, logo, toggleSidebar }) {
                       onClick={toggleSidebar}
                     >
                       <i className={prop.icon} />
-                      <p>{rtlActive ? prop.rtlName : prop.name}</p>
+                      <p>{ prop.name}</p>
                     </NavLink>
                   </li>
                 );
