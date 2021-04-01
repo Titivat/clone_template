@@ -1,11 +1,8 @@
 /*eslint-disable*/
 import React from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
-
-// javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
 
 // reactstrap components
 import { Nav, NavLink as ReactstrapNavLink } from "reactstrap";
@@ -16,7 +13,7 @@ import {
 
 var ps;
 
-function Sidebar({ routes, rtlActive, logo, toggleSidebar }) {
+function Sidebar({ routes, logo, toggleSidebar }) {
   const sidebarRef = React.useRef(null);
 
   let logoImg = null;
@@ -81,6 +78,7 @@ function Sidebar({ routes, rtlActive, logo, toggleSidebar }) {
             <Nav>
               {routes.map((prop, key) => {
                 if (prop.redirect) return null;
+
                 return (
                   <li
                     key={key}
@@ -92,7 +90,7 @@ function Sidebar({ routes, rtlActive, logo, toggleSidebar }) {
                       onClick={toggleSidebar}
                     >
                       <i className={prop.icon} />
-                      <p>{ prop.name}</p>
+                      <p>{prop.name}</p>
                     </NavLink>
                   </li>
                 );
@@ -106,7 +104,6 @@ function Sidebar({ routes, rtlActive, logo, toggleSidebar }) {
 }
 
 Sidebar.defaultProps = {
-  rtlActive: false,
   routes: [{}],
 };
 

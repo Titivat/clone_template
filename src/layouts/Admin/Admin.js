@@ -75,6 +75,7 @@ function Admin(props) {
               logo={{
                 text: "Team project",
                 imgSrc: logo,
+                innerLink: '/'
               }}
               toggleSidebar={toggleSidebar}
             />
