@@ -16,10 +16,9 @@ import {
 
 var ps;
 
-function Sidebar(props) {
+function Sidebar({ routes, rtlActive, logo, toggleSidebar }) {
   const sidebarRef = React.useRef(null);
 
-  const { routes, rtlActive, logo } = props;
   let logoImg = null;
   let logoText = null;
   if (logo !== undefined) {
@@ -28,7 +27,7 @@ function Sidebar(props) {
         <a
           className="simple-text logo-mini"
           target="_blank"
-          onClick={props.toggleSidebar}
+          onClick={toggleSidebar}
         >
           <div className="logo-img">
             <img src={logo.imgSrc} alt="react-logo" />
@@ -39,7 +38,7 @@ function Sidebar(props) {
         <a
           className="simple-text logo-normal"
           target="_blank"
-          onClick={props.toggleSidebar}
+          onClick={toggleSidebar}
         >
           {logo.text}
         </a>
@@ -49,7 +48,7 @@ function Sidebar(props) {
         <Link
           to={logo.innerLink}
           className="simple-text logo-mini"
-          onClick={props.toggleSidebar}
+          onClick={toggleSidebar}
         >
           <div className="logo-img">
             <img src={logo.imgSrc} alt="react-logo" />
@@ -60,7 +59,7 @@ function Sidebar(props) {
         <Link
           to={logo.innerLink}
           className="simple-text logo-normal"
-          onClick={props.toggleSidebar}
+          onClick={toggleSidebar}
         >
           {logo.text}
         </Link>
@@ -89,7 +88,7 @@ function Sidebar(props) {
                       to={prop.layout + prop.path}
                       className="nav-link"
                       activeClassName="active"
-                      onClick={props.toggleSidebar}
+                      onClick={toggleSidebar}
                     >
                       <i className={prop.icon} />
                       <p>{rtlActive ? prop.rtlName : prop.name}</p>
