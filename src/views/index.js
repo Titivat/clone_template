@@ -5,3 +5,4 @@ export { default as Notifications } from './Notifications';
 export { default as TableList } from './TableList';
 export { default as Typography } from './Typography';
 export { default as UserProfile } from './UserProfile';
+export { default as NewEvent } from './NewEvent';

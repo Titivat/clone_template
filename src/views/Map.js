@@ -1,5 +1,5 @@
 
-export default function Mao(props) {
+export default function Map(props) {
     return (
         <>
         </>

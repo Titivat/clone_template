@@ -18,8 +18,8 @@
 
 import {
   Dashboard,
+  NewEvent,
   Icons,
-  Map,
   Notifications,
   TableList,
   Typography,
@@ -27,6 +27,20 @@ import {
 } from 'views'
 
 var routes = [
+  {
+    path: "/dashboard",
+    name: "View Event",
+    icon: "tim-icons icon-chart-pie-36",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/new-event",
+    name: "Create Event",
+    icon: "tim-icons icon-single-02",
+    component: NewEvent,
+    layout: "/admin",
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -39,13 +53,6 @@ var routes = [
     name: "Icons",
     icon: "tim-icons icon-atom",
     component: Icons,
-    layout: "/admin",
-  },
-  {
-    path: "/map",
-    name: "Map",
-    icon: "tim-icons icon-pin",
-    component: Map,
     layout: "/admin",
   },
   {

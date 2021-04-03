@@ -146,7 +146,7 @@ function UserProfile() {
                           defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
                             that two seat Lambo."
                           placeholder="Here can be your description"
-                          rows="4"
+                          rows="5"
                           type="textarea"
                         />
                       </FormGroup>
