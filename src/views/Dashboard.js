@@ -202,15 +202,15 @@ function Dashboard(props) {
                 <h6 className="title d-inline">Tasks(5)</h6>
                 <p className="card-category d-inline"> today</p>
                 <UncontrolledDropdown>
-                  <DropdownToggle
-                    caret
-                    className="btn-icon"
-                    color="link"
-                    data-toggle="dropdown"
-                    type="button"
-                  >
-                    <i className="tim-icons icon-settings-gear-63" />
-                  </DropdownToggle>
+                    <DropdownToggle
+                      caret
+                      className="btn-icon"
+                      color="link"
+                      data-toggle="dropdown"
+                      type="button"
+                    >
+                      <i className="tim-icons icon-settings-gear-63" />
+                    </DropdownToggle>
                   <DropdownMenu aria-labelledby="dropdownMenuLink" right>
                     <DropdownItem
                       href="#pablo"
