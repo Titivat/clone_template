@@ -42,9 +42,9 @@ function NewEvent() {
 
   const [ files, setFiles ] = useState( null );
   const [ filesName, setFilesName ] = useState(null);
-  // const [shareTo, setshareTo] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
+  const [shareTo, setshareTo] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const [day, setDay] = useState("Day ⬇");
   const [month, setMonth] = useState(new Date().getMonth() + 1 );
@@ -117,11 +117,24 @@ function NewEvent() {
                   onSubmit={handleSubmit}
                 >
                   <Row>
-                    <Col md="12">
+                  <Col md="12">
                       <FormGroup>
-                        <label>Title</label>
+                        <label>Share To:</label>
                         <Input
                           type="text"
+                          value={shareTo}
+                          onChange={e => setshareTo(e.target.value)}
+                          required
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md="12">
+                      <FormGroup>
+                        <label>Title:</label>
+                        <Input
+                          type="text"
+                          value={title}
+                          onChange={e => setTitle(e.target.value)}
                           required
                         />
                       </FormGroup>
@@ -130,9 +143,11 @@ function NewEvent() {
                   <Row>
                     <Col md="12">
                       <FormGroup>
-                        <label>Description</label>
+                        <label>Description:</label>
                         <Input
                           type="textarea"
+                          value={description}
+                          onChange={e => setDescription(e.target.value)}
                           required
                         />
                       </FormGroup>
