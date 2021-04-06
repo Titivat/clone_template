@@ -17,6 +17,7 @@
 */
 import React, { useState } from "react";
 import { post } from '../api';
+
 // reactstrap components
 import {
   Button,
@@ -257,7 +258,6 @@ function NewEvent() {
                       </FormGroup>
                     </Col>
                   </Row>
-
                   <Row>
                     <Col>
                       <FormGroup>
@@ -268,9 +268,7 @@ function NewEvent() {
                         <Button className="btn-fill" color="primary" type="submit">Save</Button>
                       </FormGroup>
                     </Col>
-
                   </Row>
-
                 </Form>
               </CardBody>
             </Card>

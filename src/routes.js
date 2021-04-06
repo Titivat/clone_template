@@ -18,6 +18,7 @@
 
 import {
   Dashboard,
+  ViewEvent,
   NewEvent,
   Icons,
   Notifications,
@@ -28,10 +29,10 @@ import {
 
 var routes = [
   {
-    path: "/dashboard",
+    path: "/view-event",
     name: "View Event",
     icon: "tim-icons icon-chart-pie-36",
-    component: Dashboard,
+    component: ViewEvent,
     layout: "/admin",
   },
   {
