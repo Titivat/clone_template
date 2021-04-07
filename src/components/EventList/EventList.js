@@ -30,10 +30,12 @@ import {
 } from "reactstrap";
 
 import { SelectEvent } from '../../contexts/SeletedEvent';
+import { OnEventList } from '../../contexts/OnEventList';
 import * as API from '../../api'
 
 function EventList() {
   const { setSelectEvent } = useContext( SelectEvent );
+  const { setOnEventList } = useContext( OnEventList );
   const [eventList, setEventList] = useState([]);
 
   useEffect(() => {
@@ -62,7 +64,8 @@ function EventList() {
   }, []);
 
   const handleSeletectedEvent = ( event ) => {
-    setSelectEvent( event )
+    setSelectEvent( event );
+    setOnEventList( false );
   }
 
   return (

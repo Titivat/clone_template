@@ -278,5 +278,5 @@ function NewEvent() {
     </>
   );
 }
-
+      
 export default NewEvent;

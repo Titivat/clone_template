@@ -18,17 +18,20 @@
 import React, { useState } from "react";
 
 import { SelectEvent } from '../contexts/SeletedEvent';
+import { OnEventList } from '../contexts/OnEventList';
 import {EventList, EventDisplay} from '../components';
 
 function Dashboard() {
   const [ selectEvent, setSelectEvent ] = useState( null );
-  const [ onEventList ] = useState( true );
+  const [ onEventList, setOnEventList] = useState( true );
 
   return (
     <SelectEvent.Provider value={{ selectEvent, setSelectEvent }}>
+      <OnEventList.Provider value={{onEventList, setOnEventList}}>
       {
         (onEventList)?<EventList/>:<EventDisplay/>
       }
+      </OnEventList.Provider>
     </SelectEvent.Provider>
   );
 }

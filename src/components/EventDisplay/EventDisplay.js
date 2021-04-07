@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 
 // reactstrap components
 import {
@@ -15,61 +15,39 @@ import {
 } from "reactstrap";
 
 import { SelectEvent } from '../../contexts/SeletedEvent';
+import { OnEventList } from '../../contexts/OnEventList';
 
 function EventDisplay() {
-    const { selectEvent } = useContext( SelectEvent );
+  const { selectEvent } = useContext( SelectEvent );
+  const { setOnEventList } = useContext( OnEventList );
+  const {subject, message, send_on, reciepient, file } = selectEvent;
 
-    const [title, setTitle] = useState();
-    const [description, setDescription ] = useState();
+  const title = subject;
+  const description = message;
+  const shareTo = reciepient;
 
-    const [day , setDay ] = useState();
-    const [month, setMonth ] = useState();
-    const [year, setYear ] = useState();
+  const date = new Date(send_on);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();;
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const secound = date.getSeconds();
+  const files = file;
 
-    const [hour, setHour ] = useState();
-    const [minute, setMin ] = useState();
-    const [secound, setSec ] = useState();
-
-    const [shareTo, setShareto ] = useState();
-    const [ files , setFiles ] = useState();
-
-    if( selectEvent === null){
-      setTitle("No Title");
-      setDescription("No Description");
-      setDay("0");
-      setMonth("0");
-      setYear("0");
-      setHour("0");
-      setMin("0");
-      setSec( "0");
-      setShareto("No person to share to");
-      setFiles( [] );
-    }else{
-      const {subject, message, send_on, reciepient, file } = selectEvent;
-      setTitle( subject );
-      setDescription( message );
-
-      const date = new Date(send_on);
-      setDay( date.getDate() );
-      setMonth( date.getMonth() + 1 );
-      setYear(date.get);
-      setHour( date.getHours() );
-      setMin( date.getMinutes() );
-      setSec( date.get);
-
-      setShareto( reciepient );
-      setFiles( file );
-    }
-
+  const handleChagePage = () => {
+    setOnEventList( true );
+  }
 
   return (
     <>
-      <div className="content">
+        <div className="content">
         <Row>
           <Col md="12">
             <Card>
               <CardHeader>
-                <h2 style={{textAlign:"center"}} className="description">Create new event</h2>
+                <i onClick={() => handleChagePage() } className="tim-icons icon-double-left" />
+                <h2 style={{textAlign:"center"}} className="description">Display event</h2>
               </CardHeader>
               <CardBody>
                 <Form>
