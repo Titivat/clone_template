@@ -21,7 +21,7 @@ import { SelectEvent } from '../contexts/SeletedEvent';
 import { OnEventList } from '../contexts/OnEventList';
 import {EventList, EventDisplay} from '../components';
 
-function Dashboard() {
+function ViewEvent() {
   const [ selectEvent, setSelectEvent ] = useState( null );
   const [ onEventList, setOnEventList] = useState( true );
 
@@ -36,4 +36,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default ViewEvent;

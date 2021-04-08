@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import {
   FormGroup,
@@ -23,6 +24,8 @@ function Register(props) {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const history = useHistory();
+
   const style = {
     display: "flex",
     justifyContent: "center",
@@ -44,7 +47,7 @@ function Register(props) {
   }
 
   const handleLogin = () => {
-      console.log("I am click login");
+    history.push("/");
   }
 
   const handleSubmit = async (evt) => {

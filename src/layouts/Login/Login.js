@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import {
   FormGroup,
@@ -21,6 +22,8 @@ function Login(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   const style = {
     display: "flex",
@@ -46,7 +49,7 @@ function Login(props) {
   }
 
   const handleSubmit = async (evt) => {
-    //evt.preventDefault();
+    evt.preventDefault();
     const data = {
         "username": userName,
         "password": password,
@@ -55,7 +58,12 @@ function Login(props) {
 
     try{
       const response = await API.post('/auth/jwt/create/', data);
-      console.log("I am in " + response.status );
+      const responseStatus = response.status;
+
+      if( responseStatus === 200 ){
+        history.push("/admin");
+      }
+
     }catch (err) {
       alert("Error " + err.message);
     }
@@ -63,6 +71,9 @@ function Login(props) {
     loading(false);
   }
 
+  const handleRegister = () => {
+    history.push("/register");
+  }
 
   return (
     <>
@@ -115,7 +126,7 @@ function Login(props) {
                     <Row>
                         <Col  md="12" >
                           <FormGroup>
-                            <h4 style={{textAlign:"center", margin:"10px"}} className="title">Register</h4>
+                            <h4 onClick={ handleRegister } style={{textAlign:"center", margin:"10px"}} className="title">Register</h4>
                           </FormGroup>
                         </Col>
                     </Row>

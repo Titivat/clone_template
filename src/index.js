@@ -21,7 +21,7 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/" render={(props) => <LoginLayout {...props} />} />
           <Route exact path="/register" render={(props) => <RegisterLayout {...props} />} />
-          <Route exact path="/admin" render={(props) => <AdminLayout {...props} />} />
+          <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
         </Switch>
       </BrowserRouter>
     </BackgroundColorWrapper>
