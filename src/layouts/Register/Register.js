@@ -51,7 +51,7 @@ function Register(props) {
   }
 
   const handleSubmit = async (evt) => {
-    //evt.preventDefault();
+    evt.preventDefault();
     const data = {
         "username": userName,
         "email": email,
@@ -61,7 +61,12 @@ function Register(props) {
 
     try{
       const response = await API.post('/auth/users/', data);
-      console.log("I am in " + response.status );
+      const responseStatus = response.status;
+
+      if( responseStatus === 201 ){
+        history.push("/admin");
+      }
+      console.log("I am in " + response.message );
     }catch (err) {
       alert("Error " + err.message);
     }
