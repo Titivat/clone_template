@@ -1,12 +1,11 @@
 import {API_PATH_NAME} from "./apiPath"
 const axios = require('axios');
 
-export default function post( path, data){
+export default function getNoData( path ){
     try {
         let response = axios({
-            method: 'post',
+            method: 'get',
             url: `${API_PATH_NAME}${path}`,
-            data: data,
         });
         return response;
     } catch (err) {

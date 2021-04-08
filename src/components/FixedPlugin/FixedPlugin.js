@@ -27,6 +27,7 @@ function FixedPlugin(props) {
   const handleClick = () => {
     setdropDownIsOpen(!dropDownIsOpen);
   };
+
   return (
     <div className="fixed-plugin">
       <Dropdown isOpen={dropDownIsOpen} toggle={handleClick}>

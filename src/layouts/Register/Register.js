@@ -17,8 +17,9 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin"
 import { Form } from "react-bootstrap";
 import * as API from '../../api';
 
-function Login(props) {
+function Register(props) {
   const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,24 +38,26 @@ function Login(props) {
     boxShadow: "none",
     color: "#ffffff",
   }
+
   const loading = ( isLoading ) => {
-    if( isLoading ){
-      setIsLoading( true )
-    }else{
-      setIsLoading( false );
-    }
+    ( isLoading ) ? setIsLoading( isLoading ) : setIsLoading( isLoading );
+  }
+
+  const handleLogin = () => {
+      console.log("I am click login");
   }
 
   const handleSubmit = async (evt) => {
     //evt.preventDefault();
     const data = {
         "username": userName,
+        "email": email,
         "password": password,
     }
     loading(true);
 
     try{
-      const response = await API.post('/auth/jwt/create/', data);
+      const response = await API.post('/auth/users/', data);
       console.log("I am in " + response.status );
     }catch (err) {
       alert("Error " + err.message);
@@ -74,7 +77,7 @@ function Login(props) {
               <Col md="6">
                 <Card>
                   <CardHeader>
-                    <h3 style={{textAlign:"center"}} className="title">Login  </h3>
+                    <h3 style={{textAlign:"center"}} className="title">Register</h3>
                   </CardHeader>
                   <CardBody>
                     <Form
@@ -94,6 +97,17 @@ function Login(props) {
                         </Col>
                         <Col md="12">
                           <FormGroup>
+                            <label>Email:</label>
+                            <Input
+                              type="text"
+                              value={email}
+                              onChange={e => setEmail(e.target.value)}
+                              required
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col md="12">
+                          <FormGroup>
                             <label>Password:</label>
                             <Input
                               type="text"
@@ -107,7 +121,7 @@ function Login(props) {
                       <Row>
                         <Col  md="12" >
                           <FormGroup>
-                            <Input style={buttonStyle} color="primary" type="submit" value="login" />
+                            <Input style={buttonStyle} color="primary" type="submit" value="register" />
                           </FormGroup>
                         </Col>
                       </Row>
@@ -115,7 +129,7 @@ function Login(props) {
                     <Row>
                         <Col  md="12" >
                           <FormGroup>
-                            <h4 style={{textAlign:"center", margin:"10px"}} className="title">Register</h4>
+                            <h4 onClick={ handleLogin } style={{textAlign:"center", margin:"10px"}} className="title">Login</h4>
                           </FormGroup>
                         </Col>
                     </Row>
@@ -137,4 +151,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default Register;
