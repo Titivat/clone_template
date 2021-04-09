@@ -47,7 +47,7 @@ function Register(props) {
   }
 
   const handleLogin = () => {
-    history.push("/");
+    history.push("/login");
   }
 
   const handleSubmit = async (evt) => {
@@ -58,7 +58,7 @@ function Register(props) {
         "password": password,
     }
     loading(true);
-    
+
     try{
       const response = await API.post('/auth/users/', data);
       const responseStatus = response.status;

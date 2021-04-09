@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AdminLayout from "layouts/Admin/Admin.js";
 import LoginLayout from "layouts/Login/Login.js";
 import RegisterLayout from "layouts/Register/Register.js";
+import MainLayout from 'layouts/Main/Main.js'
 
 import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";
@@ -19,7 +20,8 @@ ReactDOM.render(
     <BackgroundColorWrapper>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" render={(props) => <LoginLayout {...props} />} />
+          <Route exact path="/" render={(props) => <MainLayout {...props} />} />
+          <Route exact path="/login" render={(props) => <LoginLayout {...props} />} />
           <Route exact path="/register" render={(props) => <RegisterLayout {...props} />} />
           <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
         </Switch>
