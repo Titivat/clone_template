@@ -40,7 +40,8 @@ function EventList() {
 
   useEffect(() => {
     const data = null
-    const response = API.get( '',data );
+    const token = localStorage.getItem("token");
+    const response = API.getWithToken( '/api/mail/',data,  token);
 
     if( Object.prototype.toString.call(response) === "[object Error]" ){
       alert("Error " + response.message);

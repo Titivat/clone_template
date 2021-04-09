@@ -135,7 +135,8 @@ function NewEvent() {
     }
 
     try{
-      const response = await API.post('/api/mail/', data);
+      const token = localStorage.getItem("token");
+      const response = await API.postToken('/api/mail/', data, token);
       const responseStatus = response.status;
 
       if( responseStatus === 201 ){
@@ -144,7 +145,7 @@ function NewEvent() {
     }catch (err) {
       alert("Error " + err.message);
     }
-    
+
     loading(false);
   }
 

@@ -1,12 +1,14 @@
 import {API_PATH_NAME} from "./apiPath"
 const axios = require('axios');
 
-export default function post( path, data ){
+export default function getWithToken( path, token ){
     try {
         let response = axios({
-            method: 'post',
+            method: 'get',
             url: `${API_PATH_NAME}${path}`,
-            data: data,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
         return response;
     } catch (err) {

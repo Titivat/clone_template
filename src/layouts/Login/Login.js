@@ -59,8 +59,9 @@ function Login(props) {
     try{
       const response = await API.post('/auth/jwt/create/', data);
       const responseStatus = response.status;
-
+      
       if( responseStatus === 200 ){
+        localStorage.setItem('token', response.data.access );
         history.push("/admin");
       }
 
