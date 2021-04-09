@@ -58,7 +58,7 @@ function Register(props) {
         "password": password,
     }
     loading(true);
-
+    
     try{
       const response = await API.post('/auth/users/', data);
       const responseStatus = response.status;
@@ -66,14 +66,12 @@ function Register(props) {
       if( responseStatus === 201 ){
         history.push("/admin");
       }
-      console.log("I am in " + response.message );
     }catch (err) {
       alert("Error " + err.message);
     }
 
     loading(false);
   }
-
 
   return (
     <>

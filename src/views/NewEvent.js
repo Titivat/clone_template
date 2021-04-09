@@ -16,7 +16,8 @@
 
 */
 import React, { useState } from "react";
-import { post } from '../api';
+import * as API  from '../api';
+import * as Func from '../function'
 
 // reactstrap components
 import {
@@ -65,6 +66,8 @@ function NewEvent() {
   const minutes = range(0, 59);
   const secounds = range(0, 59);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [dropdownOpenDay, setdropdownOpenDay] = useState(false);
   const toggleOpenDay = () => setdropdownOpenDay(prevState => !prevState);
 
@@ -97,11 +100,52 @@ function NewEvent() {
     }
   }
 
-  const handleSubmit = () => {
-    const data = {
-
+  const loading = ( isLoading ) => {
+    if (isLoading) {
+      setIsLoading(true)
+    } else {
+      setIsLoading(false)
     }
-    post( 'something',data );
+  }
+
+  const handleSubmit = async ( evt ) => {
+    evt.preventDefault();
+
+    loading(true);
+
+    if(isNaN(day) && isNaN( year ) ){
+      alert("Your day is not selected");
+      loading( false );
+      return
+    }
+
+    if( isNaN(hour) && isNaN( minute) && isNaN( secounds ) ){
+      setHour(0);
+      setMinute(0);
+      setSecound(0);
+    }
+
+    const data = {
+      "owner": 1,
+      "subject": title,
+      "message": description,
+      "send_on": Func.toIso(day, month, year, hour, minute, secound),
+      "reciepient": shareTo,
+      "sent": false
+    }
+
+    try{
+      const response = await API.post('/api/mail/', data);
+      const responseStatus = response.status;
+
+      if( responseStatus === 201 ){
+        alert("Sucessfull uploade");
+      }
+    }catch (err) {
+      alert("Error " + err.message);
+    }
+    
+    loading(false);
   }
 
   return (
@@ -157,10 +201,11 @@ function NewEvent() {
                   <Row>
                     <Col className="pr-md-1" md="1.5">
                       <FormGroup style={{margin:"0 15px"}}>
-                        <label>Day:</label>
-                        <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay}>
-                          <DropdownToggle caret required>{day}</DropdownToggle>
-                          <DropdownMenu>
+                        <label>Days:</label>
+                        <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay} required>
+                          <DropdownToggle caret value="" required>{day}</DropdownToggle>
+                          <DropdownMenu required>
+                            <DropdownItem value="" onClick={() => setDay("null") }>null</DropdownItem>
                             {
                               days.map((value) => {
                                 return <DropdownItem onClick={() => setDay(value) }>{value}</DropdownItem>
@@ -173,7 +218,7 @@ function NewEvent() {
                     <Col className="px-md-1" md="1.5">
                       <FormGroup>
                       <label>Month:</label>
-                      <Dropdown isOpen={dropdownOpenMonth} toggle={toggleOpenMonth}>
+                      <Dropdown isOpen={dropdownOpenMonth} toggle={toggleOpenMonth} >
                           <DropdownToggle caret>{month}</DropdownToggle>
                           <DropdownMenu>
                             {
@@ -265,11 +310,18 @@ function NewEvent() {
                           <label style={{margin:"10px"}}>Uploade file</label>
                           <Input type="file" onChange={ handleFileUploade } multiple/>
                         </FormGroup>
-                        <Button className="btn-fill" color="primary" type="submit">Save</Button>
+                        <Button className="btn-fill" color="primary" type="submit">Submit</Button>
                       </FormGroup>
                     </Col>
                   </Row>
                 </Form>
+                <Row>
+                  <Col>
+                      <FormGroup>
+                        {(isLoading) && <h4 style={{ textAlign: "center", color:"red"}}>Loading</h4>}
+                      </FormGroup>
+                  </Col>
+                </Row>
               </CardBody>
             </Card>
           </Col>
@@ -278,5 +330,5 @@ function NewEvent() {
     </>
   );
 }
-      
+
 export default NewEvent;
