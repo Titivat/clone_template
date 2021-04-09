@@ -38,29 +38,15 @@ function EventList() {
   const { setOnEventList } = useContext( OnEventList );
   const [eventList, setEventList] = useState([]);
 
-  useEffect(() => {
-    const data = null
-    const token = localStorage.getItem("token");
-    const response = API.getWithToken( '/api/mail/',data,  token);
-
-    if( Object.prototype.toString.call(response) === "[object Error]" ){
-      alert("Error " + response.message);
-
-    }else{
-      setEventList( [{
-          "subject": "Update the Documentation",
-          "message": "Dwuamish Head, Seattle, WA 8:47 AM",
-          "send_on": "2021-04-06T11:34:19+0000",
-          "reciepient": "hanaegypti@dikitin.com",
-          "file": [],
-        },{
-          "subject": "GDPR Compliance",
-          "message": "The GDPR is a regulation that requires businesses to protect the personal data and privacy of Europe citizens for transactions that occur within EU member states.",
-          "send_on": "2023-04-06T00:00:00+0000",
-          "reciepient": "xgleizer.carvalh@roofter.com",
-          "file": [],
-        },
-      ]);
+  useEffect( () => {
+    try{
+      const token = localStorage.getItem("token");
+      API.getWithToken('/api/mail/', token).then(
+        ( response ) => setEventList( response.data )
+      );
+      
+    }catch (err) {
+      //alert("Error " + err.message);
     }
   }, []);
 
