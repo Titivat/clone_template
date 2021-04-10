@@ -46,7 +46,7 @@ function EventList() {
       );
       
     }catch (err) {
-      //alert("Error " + err.message);
+      alert("Error " + err.message);
     }
   }, []);
 
