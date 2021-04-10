@@ -8,8 +8,8 @@ export default function putToDigitalOcean( path, data){
             data: data,
             headers: {
                 'Content-Type': data.type,
-                'x-amz-acl': 'public-read',
-                //'x-amz-acl': 'private',
+                //'x-amz-acl': 'public-read',
+                'x-amz-acl': 'private',
             }
         });
         return response;
