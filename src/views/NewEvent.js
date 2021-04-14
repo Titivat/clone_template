@@ -141,10 +141,11 @@ function NewEvent() {
       const response = await API.postToken('/api/mail/', data, token);
       const responseStatus = response.status;
 
+
       if( files !== null ){
+        console.log( response.data );
         const fileUrlPCom =  "https://sgp1.digitaloceanspaces.com/se-kmitl/files/admin/testEnvironment.txt/e019c61b-1768-4b33-b4a3-3c9e0f006f9f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=3DMCB6QDDQTWWH62HZES%2F20210410%2Fsgp1%2Fs3%2Faws4_request&X-Amz-Date=20210410T144018Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6dd8b8335a56ee0ee6a3d4fc607665e22b9a1cc7badf5bd5c6b1270b446a1195";
         const data = files[0][0];
-        console.log( data );
         const responseFromDigital = await API.putToDigitalOcean( fileUrlPCom, data);
 
         console.log( responseFromDigital );

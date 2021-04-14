@@ -37,27 +37,38 @@ function EventList() {
   const { setSelectEvent } = useContext( SelectEvent );
   const { setOnEventList } = useContext( OnEventList );
   const [eventList, setEventList] = useState([]);
+  const [isLoading, setIsLoading] = useState( false );
 
   useEffect( () => {
+    handleChangedata();
+  }, []);
+
+  const handleChangedata = async () => {
     try{
+      setIsLoading( true );
       const token = localStorage.getItem("token");
-      API.getWithToken('/api/mail/', token).then(
-        ( response ) => setEventList( response.data )
-      );
-      
+      const response = await API.getWithToken('/api/mail/', token)
+      setEventList( response.data )
+      setIsLoading( false );
     }catch (err) {
       alert("Error " + err.message);
     }
-  }, []);
-
+  }
   const handleSeletectedEvent = ( event ) => {
     setSelectEvent( event );
     setOnEventList( false );
   }
 
+  const handleDelete = async ( key ) => {
+    const token = localStorage.getItem("token");
+    await API.deleteWithToken(`/api/mail/${key}/`, token);
+    await handleChangedata();
+  }
+
   return (
     <>
       <div className="content">
+        {(isLoading)&& <p style={{textAlign:"center", color:"red"}}>Loading</p>}
         <Row>
           <Col lg="12" md="12">
             <Card className="card-tasks">
@@ -70,8 +81,8 @@ function EventList() {
                     <tbody>
                       {
                         eventList.map( (event) => {
-                          return (<tr key={ event.subject } onClick={ () => handleSeletectedEvent( event )}>
-                                    <td>
+                          return (<tr key={ event.subject }>
+                                    <td  onClick={ () => handleSeletectedEvent( event )}>
                                       <p className="title">{ event.subject }</p>
                                       <p className="text-muted">{ event.message }</p>
                                     </td>
@@ -81,6 +92,7 @@ function EventList() {
                                         id="tooltip217595172"
                                         title=""
                                         type="button"
+                                        onClick={ () => handleDelete( event.id ) }
                                       >
                                         <i className="tim-icons icon-trash-simple" />
                                       </Button>
