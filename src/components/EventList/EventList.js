@@ -55,6 +55,7 @@ function EventList() {
     }
   }
   const handleSeletectedEvent = ( event ) => {
+    console.log( event );
     setSelectEvent( event );
     setOnEventList( false );
   }
