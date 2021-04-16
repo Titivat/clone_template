@@ -95,10 +95,10 @@ function NewEvent() {
     }else if( filesName.includes( file[0].name )  ){
         alert("This file name already uploaded")
     }else{
-        //setFiles( [ ...files ,file] )
-        //setFilesName( [ ...filesName, file[0].name] )
-        setFiles( [ file ] )
-        setFilesName( [ file[0].name] )
+        setFiles( [ ...files ,file] )
+        setFilesName( [ ...filesName, file[0].name] )
+        //setFiles( [ file ] )
+        //setFilesName( [ file[0].name] )
     }
   }
 
@@ -138,30 +138,36 @@ function NewEvent() {
     }
 
     try{
-      const token = localStorage.getItem("token");
-      const response = await API.postToken('/api/mail/', data, token);
-      const responseStatus = response.status;
-
       if( files !== null ){
-        const data = {
-          "owner":1,
-          "file_name": filesName[0],
-          "file_upload_url":"a",
-          "file_download_url":"a"
-        }
+        const token = localStorage.getItem("token");
+        const dataResponse = []
 
-        const response = await API.postToken('/api/file/', data, token);
+        files.map( async ( item ) => {
+          const data = {
+            "owner":1,
+            "file_name": item[0].name,
+            "file_upload_url":"a",
+            "file_download_url":"a"
+          }
 
-        const responseUrl = response.data.file_upload_url;
-        const dataFile = files[0][0];
-        const responseFromDigital = await API.putToDigitalOcean( responseUrl, dataFile);
+          const response = await API.postToken('/api/file/', data, token);
+          const responseUrl = response.data.file_upload_url;
 
-        if(responseFromDigital.status === 200){
-          alert("Sucessfull uploade");
-        }
+          const dataFile = files[0];
+          const responseFromDigital = await API.putToDigitalOcean( responseUrl, dataFile);
 
-      }else if( responseStatus === 201 ){
-        alert("Sucessfull uploade");
+          if(await responseFromDigital.status === 200){
+            dataResponse.push( response.data );
+          }
+
+        })
+
+        data.file_list = dataResponse
+        await handleSendMail( data );
+      }
+
+      if( files === null ){
+        handleSendMail( data );
       }
 
     }catch (err) {
@@ -169,6 +175,20 @@ function NewEvent() {
     }
 
     loading(false);
+  }
+
+  const handleSendMail = async ( data ) => {
+    console.log("This is a data from handleSendMail");
+    console.log( data );
+
+    const token = localStorage.getItem("token");
+    const response = await API.postToken('/api/mail/', data, token);
+    const responseStatus = response.status;
+
+    if( responseStatus === 200 || responseStatus === 201 ){
+      alert("Uploade sucesfull");
+    }
+
   }
 
   return (
