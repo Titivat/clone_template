@@ -54,7 +54,7 @@ function NewEvent() {
 
   const [hour, setHour] = useState("Hour ⬇");
   const [minute, setMinute] = useState("Minute ⬇");
-  const [secound, setSecound] = useState("Secound ⬇");
+  const [secound, setSecound] = useState("Second ⬇");
 
   const monthToDay = { 1: "31", 2: "28", 3: "31", 4: '30', 5: '31', 6: "30", 7: "31", 8: '31', 9: '30', 10: '31', 11: '30', 12: '31' }
   const days = range(1, monthToDay[month]);
@@ -85,6 +85,8 @@ function NewEvent() {
 
   const [dropdownOpenSec, setdropdownOpenSec] = useState(false);
   const toggleOpenSec = () => setdropdownOpenSec(prevState => !prevState);
+
+  const droupDownStyle = { height: "200px",overflowY: "scroll"}
 
   const handleFileUploade = (e) => {
     const file = e.target.files
@@ -247,7 +249,7 @@ function NewEvent() {
                         <label>Days:</label>
                         <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay} required>
                           <DropdownToggle caret value="" required>{day}</DropdownToggle>
-                          <DropdownMenu required>
+                          <DropdownMenu style={ droupDownStyle }>
                             <DropdownItem value="" onClick={() => setDay("null") }>null</DropdownItem>
                             {
                               days.map((value) => {
@@ -263,7 +265,7 @@ function NewEvent() {
                       <label>Month:</label>
                       <Dropdown isOpen={dropdownOpenMonth} toggle={toggleOpenMonth} >
                           <DropdownToggle caret>{month}</DropdownToggle>
-                          <DropdownMenu>
+                          <DropdownMenu style={ droupDownStyle }>
                             {
                               months.map((value) => {
                                 return <DropdownItem onClick={() => setMonth(value) }>{value}</DropdownItem>
@@ -278,7 +280,7 @@ function NewEvent() {
                       <label>Year:</label>
                       <Dropdown isOpen={dropdownOpenYear} toggle={toggleOpenYear}>
                           <DropdownToggle caret>{year}</DropdownToggle>
-                          <DropdownMenu>
+                          <DropdownMenu  style={ droupDownStyle }>
                             {
                               years.map((value) => {
                                 return <DropdownItem onClick={() => setYear(value) }>{value}</DropdownItem>
@@ -293,7 +295,7 @@ function NewEvent() {
                       <label>Hour:</label>
                       <Dropdown isOpen={dropdownOpenHour} toggle={toggleOpenHour}>
                           <DropdownToggle caret>{hour}</DropdownToggle>
-                          <DropdownMenu>
+                          <DropdownMenu style={ droupDownStyle }>
                             {
                               hours.map((value) => {
                                 return <DropdownItem onClick={() => setHour(value) }>{value}</DropdownItem>
@@ -308,7 +310,7 @@ function NewEvent() {
                       <label>Minutes:</label>
                       <Dropdown isOpen={dropdownOpenMin} toggle={toggleOpenMin}>
                           <DropdownToggle caret>{minute}</DropdownToggle>
-                          <DropdownMenu>
+                          <DropdownMenu style={ droupDownStyle }>
                             {
                               minutes.map((value) => {
                                 return <DropdownItem onClick={() => setMinute(value) }>{value}</DropdownItem>
@@ -323,7 +325,7 @@ function NewEvent() {
                       <label>Secound:</label>
                       <Dropdown isOpen={dropdownOpenSec} toggle={toggleOpenSec}>
                           <DropdownToggle caret>{secound}</DropdownToggle>
-                          <DropdownMenu>
+                          <DropdownMenu style={ droupDownStyle }>
                             {
                               secounds.map((value) => {
                                 return <DropdownItem onClick={() => setSecound(value) }>{value}</DropdownItem>
@@ -349,11 +351,8 @@ function NewEvent() {
                   <Row>
                     <Col>
                       <FormGroup>
-                        <FormGroup>
-                          <label style={{margin:"10px"}}>Uploade file</label>
-                          <Input type="file" onChange={ handleFileUploade } multiple/>
-                        </FormGroup>
-                        <Button className="btn-fill" color="primary" type="submit">Submit</Button>
+                        <Button onClick={ () => console.log("hello I am from summit")} className="btn-fill" color="primary" type="submit">Submit</Button>
+                        <Button onChange={ handleFileUploade }><Input type="file" onClick={ () => console.log("hello I am from uploade file")} multiple></Input>Uploade file</Button>
                       </FormGroup>
                     </Col>
                   </Row>

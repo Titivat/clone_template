@@ -72,14 +72,14 @@ function EventList() {
         {(isLoading)&& <p style={{textAlign:"center", color:"red"}}>Loading</p>}
         <Row>
           <Col lg="12" md="12">
-            <Card className="card-tasks">
+            <Card style={{height:"100vh"}} className="card-tasks">
               <CardHeader>
                 <h6 className="title d-inline">Event({eventList.length})</h6>
               </CardHeader>
               <CardBody>
-                <div className="table-full-width table-responsive">
+                <div style={{ height: "80vh",overflowY: "scroll"}} className="table-responsive">
                   <Table>
-                    <tbody>
+                    <tbody style={{ height: "200px",overflowY: "scroll"}}>
                       {
                         eventList.map( (event) => {
                           return (<tr key={ event.subject }>
