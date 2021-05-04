@@ -144,7 +144,7 @@ function NewEvent() {
         const token = localStorage.getItem("token");
         const dataResponse = []
 
-        files.map( async ( item ) => {
+        await files.map( async ( item ) => {
           const data = {
             "owner":1,
             "file_name": item[0].name,
@@ -155,21 +155,25 @@ function NewEvent() {
           const response = await API.postToken('/api/file/', data, token);
           const responseUrl = response.data.file_upload_url;
 
-          const dataFile = files[0];
+          const dataFile = item[0];
           const responseFromDigital = await API.putToDigitalOcean( responseUrl, dataFile);
 
-          if(await responseFromDigital.status === 200){
+          if( responseFromDigital.status === 200){
+            console.log( "status: "  + responseFromDigital.status)
             dataResponse.push( response.data );
           }
 
         })
 
-        data.file_list = dataResponse
-        await handleSendMail( data );
+        console.log( "handleSendMail:"  )
+        data.file_list =  dataResponse
+        console.log( dataResponse )
+        await  handleSendMail( data );
       }
 
       if( files === null ){
-        handleSendMail( data );
+        console.log("No file");
+        await handleSendMail( data );
       }
 
     }catch (err) {
@@ -351,8 +355,8 @@ function NewEvent() {
                   <Row>
                     <Col>
                       <FormGroup>
-                        <Button onClick={ () => console.log("hello I am from summit")} className="btn-fill" color="primary" type="submit">Submit</Button>
-                        <Button onChange={ handleFileUploade }><Input type="file" onClick={ () => console.log("hello I am from uploade file")} multiple></Input>Uploade file</Button>
+                        <Button className="btn-fill" color="primary" type="submit">Submit</Button>
+                        <Button onChange={ handleFileUploade }><Input type="file" multiple></Input>Uploade file</Button>
                       </FormGroup>
                     </Col>
                   </Row>
