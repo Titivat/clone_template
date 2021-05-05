@@ -54,7 +54,7 @@ function EventDisplay() {
                   <Row>
                   <Col md="12">
                       <FormGroup>
-                        <label>Share To:</label>
+                        <label>Correspondent:</label>
                         <Input
                           type="text"
                           defaultValue={shareTo}
@@ -64,7 +64,7 @@ function EventDisplay() {
                     </Col>
                     <Col md="12">
                       <FormGroup>
-                        <label>Title:</label>
+                        <label>Subject:</label>
                         <Input
                           type="text"
                           defaultValue={title}
@@ -76,7 +76,7 @@ function EventDisplay() {
                   <Row>
                     <Col md="12">
                       <FormGroup>
-                        <label>Description:</label>
+                        <label>Body:</label>
                         <Input
                           type="textarea"
                           defaultValue={description}
@@ -128,7 +128,7 @@ function EventDisplay() {
                     </Col>
                     <Col className="pl-md-1" md="1.5">
                       <FormGroup>
-                      <label>Minutes:</label>
+                      <label>Minute:</label>
                       <Input
                           type="text"
                           defaultValue={minute}
@@ -138,7 +138,7 @@ function EventDisplay() {
                     </Col>
                     <Col className="pl-md-1" md="1.5">
                       <FormGroup>
-                      <label>Secound:</label>
+                      <label>Second:</label>
                       <Input
                           type="text"
                           defaultValue={secound}
@@ -151,7 +151,7 @@ function EventDisplay() {
                     <Col>
                       <FormGroup>
                       {
-                        (files === null ||files === undefined || files.length === 0) ? <p>{"no file uploade"}</p> :
+                        (files === null ||files === undefined || files.length === 0) ? <p>{"No file attached."}</p> :
                         files.map( (file) => {
                             return <p key={file[0].name }>{ file[0].name }</p>
                         })

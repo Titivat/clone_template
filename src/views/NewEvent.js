@@ -213,7 +213,7 @@ function NewEvent() {
                   <Row>
                   <Col md="12">
                       <FormGroup>
-                        <label>Share To:</label>
+                        <label>Recipient(s):</label>
                         <Input
                           type="text"
                           value={shareTo}
@@ -224,7 +224,7 @@ function NewEvent() {
                     </Col>
                     <Col md="12">
                       <FormGroup>
-                        <label>Title:</label>
+                        <label>Subject:</label>
                         <Input
                           type="text"
                           value={title}
@@ -237,7 +237,7 @@ function NewEvent() {
                   <Row>
                     <Col md="12">
                       <FormGroup>
-                        <label>Description:</label>
+                        <label>Body:</label>
                         <Input
                           type="textarea"
                           value={description}
@@ -250,7 +250,7 @@ function NewEvent() {
                   <Row>
                     <Col className="pr-md-1" md="1.5">
                       <FormGroup style={{margin:"0 15px"}}>
-                        <label>Days:</label>
+                        <label>Day:</label>
                         <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay} required>
                           <DropdownToggle caret value="" required>{day}</DropdownToggle>
                           <DropdownMenu style={ droupDownStyle }>
@@ -311,7 +311,7 @@ function NewEvent() {
                     </Col>
                     <Col className="pl-md-1" md="1.5">
                       <FormGroup>
-                      <label>Minutes:</label>
+                      <label>Minute:</label>
                       <Dropdown isOpen={dropdownOpenMin} toggle={toggleOpenMin}>
                           <DropdownToggle caret>{minute}</DropdownToggle>
                           <DropdownMenu style={ droupDownStyle }>
@@ -326,7 +326,7 @@ function NewEvent() {
                     </Col>
                     <Col className="pl-md-1" md="1.5">
                       <FormGroup>
-                      <label>Secound:</label>
+                      <label>Second:</label>
                       <Dropdown isOpen={dropdownOpenSec} toggle={toggleOpenSec}>
                           <DropdownToggle caret>{secound}</DropdownToggle>
                           <DropdownMenu style={ droupDownStyle }>
@@ -344,7 +344,7 @@ function NewEvent() {
                     <Col>
                       <FormGroup>
                       {
-                        (files === null ) ? <p>{"no file uploade yet"}</p> :
+                        (files === null ) ? <p>{"No file selected."}</p> :
                         files.map( (file) => {
                             return <p key={file[0].name }>{ file[0].name }</p>
                         })
@@ -356,7 +356,7 @@ function NewEvent() {
                     <Col>
                       <FormGroup>
                         <Button className="btn-fill" color="primary" type="submit">Submit</Button>
-                        <Button onChange={ handleFileUploade }><Input type="file" multiple></Input>Uploade file</Button>
+                        <Button onChange={ handleFileUploade }><Input type="file" multiple></Input>Choose file</Button>
                       </FormGroup>
                     </Col>
                   </Row>
