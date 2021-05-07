@@ -20,7 +20,9 @@ import { OnEventList } from '../../contexts/OnEventList';
 function EventDisplay() {
   const { selectEvent } = useContext( SelectEvent );
   const { setOnEventList } = useContext( OnEventList );
-  const {subject, message, send_on, reciepient, file } = selectEvent;
+  const {subject, message, send_on, reciepient, file_list } = selectEvent;
+  console.log("Event display");
+  console.log(file_list);
 
   const title = subject;
   const description = message;
@@ -33,8 +35,7 @@ function EventDisplay() {
   const hour = date.getHours();
   const minute = date.getMinutes();
   const secound = date.getSeconds();
-  const files = file;
-
+  
   const handleChagePage = () => {
     setOnEventList( true );
   }
@@ -151,9 +152,9 @@ function EventDisplay() {
                     <Col>
                       <FormGroup>
                       {
-                        (files === null ||files === undefined || files.length === 0) ? <p>{"No file attached."}</p> :
-                        files.map( (file) => {
-                            return <p key={file[0].name }>{ file[0].name }</p>
+                        (file_list === null ||file_list === undefined || file_list.length === 0) ? <p>{"No file attached."}</p> :
+                        file_list.map( (file) => {
+                            return <p key={file.file_name }>{file.file_name }</p>
                         })
                       }
                       </FormGroup>
