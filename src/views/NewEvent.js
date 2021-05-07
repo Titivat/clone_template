@@ -68,6 +68,8 @@ function NewEvent() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [switchStage, setSwitchStage] = useState(false);
+
   const [dropdownOpenDay, setdropdownOpenDay] = useState(false);
   const toggleOpenDay = () => setdropdownOpenDay(prevState => !prevState);
 
@@ -172,7 +174,6 @@ function NewEvent() {
       if( files !== null ){
         const token = localStorage.getItem("token");
 
-        //send file
         const dataResponse = await uploadeFile( token );
 
         data.file_list =  dataResponse
@@ -257,100 +258,128 @@ function NewEvent() {
                       </FormGroup>
                     </Col>
                   </Row>
-                  <h3 style={{margin:"0"}}>Time</h3>
-                  <Row>
-                    <Col className="pr-md-1" md="1.5">
-                      <FormGroup style={{margin:"0 15px"}}>
-                        <label>Day:</label>
-                        <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay} required>
-                          <DropdownToggle caret value="" required>{day}</DropdownToggle>
-                          <DropdownMenu style={ droupDownStyle }>
-                            <DropdownItem value="" onClick={() => setDay("null") }>null</DropdownItem>
-                            {
-                              days.map((value) => {
-                                return <DropdownItem onClick={() => setDay(value) }>{value}</DropdownItem>
-                              })
-                            }
-                          </DropdownMenu>
-                        </Dropdown>
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="1.5">
-                      <FormGroup>
-                      <label>Month:</label>
-                      <Dropdown isOpen={dropdownOpenMonth} toggle={toggleOpenMonth} >
-                          <DropdownToggle caret>{month}</DropdownToggle>
-                          <DropdownMenu style={ droupDownStyle }>
-                            {
-                              months.map((value) => {
-                                return <DropdownItem onClick={() => setMonth(value) }>{value}</DropdownItem>
-                              })
-                            }
-                          </DropdownMenu>
-                        </Dropdown>
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="2">
-                      <FormGroup>
-                      <label>Year:</label>
-                      <Dropdown isOpen={dropdownOpenYear} toggle={toggleOpenYear}>
-                          <DropdownToggle caret>{year}</DropdownToggle>
-                          <DropdownMenu  style={ droupDownStyle }>
-                            {
-                              years.map((value) => {
-                                return <DropdownItem onClick={() => setYear(value) }>{value}</DropdownItem>
-                              })
-                            }
-                          </DropdownMenu>
-                        </Dropdown>
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="1.5">
-                      <FormGroup>
-                      <label>Hour:</label>
-                      <Dropdown isOpen={dropdownOpenHour} toggle={toggleOpenHour}>
-                          <DropdownToggle caret>{hour}</DropdownToggle>
-                          <DropdownMenu style={ droupDownStyle }>
-                            {
-                              hours.map((value) => {
-                                return <DropdownItem onClick={() => setHour(value) }>{value}</DropdownItem>
-                              })
-                            }
-                          </DropdownMenu>
-                        </Dropdown>
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="1.5">
-                      <FormGroup>
-                      <label>Minute:</label>
-                      <Dropdown isOpen={dropdownOpenMin} toggle={toggleOpenMin}>
-                          <DropdownToggle caret>{minute}</DropdownToggle>
-                          <DropdownMenu style={ droupDownStyle }>
-                            {
-                              minutes.map((value) => {
-                                return <DropdownItem onClick={() => setMinute(value) }>{value}</DropdownItem>
-                              })
-                            }
-                          </DropdownMenu>
-                        </Dropdown>
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="1.5">
-                      <FormGroup>
-                      <label>Second:</label>
-                      <Dropdown isOpen={dropdownOpenSec} toggle={toggleOpenSec}>
-                          <DropdownToggle caret>{secound}</DropdownToggle>
-                          <DropdownMenu style={ droupDownStyle }>
-                            {
-                              secounds.map((value) => {
-                                return <DropdownItem onClick={() => setSecound(value) }>{value}</DropdownItem>
-                              })
-                            }
-                          </DropdownMenu>
-                        </Dropdown>
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                  <div style={{display:"flex"}}>
+                  <h3 style={{margin:"0 10px 0 0"}}>Time</h3>
+                  <input style={{margin:"10px"}} type="checkbox"
+                         id="switch" name="switch"
+                         value={switchStage}
+                         onChange={ () => { setSwitchStage( !switchStage); console.log(switchStage)}}
+                    />
+                  <h4 style={{margin:"5px 0 0 -5px"}}>by date</h4>
+                  </div>
+                  { (switchStage)?
+                    <Row>
+                      <Col className="pr-md-1" md="1.5">
+                        <FormGroup style={{margin:"0 15px"}}>
+                          <label>Day:</label>
+                          <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay} required>
+                            <DropdownToggle caret value="" required>{day}</DropdownToggle>
+                            <DropdownMenu style={ droupDownStyle }>
+                              <DropdownItem value="" onClick={() => setDay("null") }>null</DropdownItem>
+                              {
+                                days.map((value) => {
+                                  return <DropdownItem onClick={() => setDay(value) }>{value}</DropdownItem>
+                                })
+                              }
+                            </DropdownMenu>
+                          </Dropdown>
+                        </FormGroup>
+                      </Col>
+                      <Col className="px-md-1" md="1.5">
+                        <FormGroup>
+                        <label>Month:</label>
+                        <Dropdown isOpen={dropdownOpenMonth} toggle={toggleOpenMonth} >
+                            <DropdownToggle caret>{month}</DropdownToggle>
+                            <DropdownMenu style={ droupDownStyle }>
+                              {
+                                months.map((value) => {
+                                  return <DropdownItem onClick={() => setMonth(value) }>{value}</DropdownItem>
+                                })
+                              }
+                            </DropdownMenu>
+                          </Dropdown>
+                        </FormGroup>
+                      </Col>
+                      <Col className="pl-md-1" md="2">
+                        <FormGroup>
+                        <label>Year:</label>
+                        <Dropdown isOpen={dropdownOpenYear} toggle={toggleOpenYear}>
+                            <DropdownToggle caret>{year}</DropdownToggle>
+                            <DropdownMenu  style={ droupDownStyle }>
+                              {
+                                years.map((value) => {
+                                  return <DropdownItem onClick={() => setYear(value) }>{value}</DropdownItem>
+                                })
+                              }
+                            </DropdownMenu>
+                          </Dropdown>
+                        </FormGroup>
+                      </Col>
+                      <Col className="pl-md-1" md="1.5">
+                        <FormGroup>
+                        <label>Hour:</label>
+                        <Dropdown isOpen={dropdownOpenHour} toggle={toggleOpenHour}>
+                            <DropdownToggle caret>{hour}</DropdownToggle>
+                            <DropdownMenu style={ droupDownStyle }>
+                              {
+                                hours.map((value) => {
+                                  return <DropdownItem onClick={() => setHour(value) }>{value}</DropdownItem>
+                                })
+                              }
+                            </DropdownMenu>
+                          </Dropdown>
+                        </FormGroup>
+                      </Col>
+                      <Col className="pl-md-1" md="1.5">
+                        <FormGroup>
+                        <label>Minute:</label>
+                        <Dropdown isOpen={dropdownOpenMin} toggle={toggleOpenMin}>
+                            <DropdownToggle caret>{minute}</DropdownToggle>
+                            <DropdownMenu style={ droupDownStyle }>
+                              {
+                                minutes.map((value) => {
+                                  return <DropdownItem onClick={() => setMinute(value) }>{value}</DropdownItem>
+                                })
+                              }
+                            </DropdownMenu>
+                          </Dropdown>
+                        </FormGroup>
+                      </Col>
+                      <Col className="pl-md-1" md="1.5">
+                        <FormGroup>
+                        <label>Second:</label>
+                        <Dropdown isOpen={dropdownOpenSec} toggle={toggleOpenSec}>
+                            <DropdownToggle caret>{secound}</DropdownToggle>
+                            <DropdownMenu style={ droupDownStyle }>
+                              {
+                                secounds.map((value) => {
+                                  return <DropdownItem onClick={() => setSecound(value) }>{value}</DropdownItem>
+                                })
+                              }
+                            </DropdownMenu>
+                          </Dropdown>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    : <Row>
+                        <Col className="pr-md-1" md="1.5">
+                          <FormGroup style={{margin:"0 15px 10px"}}>
+                            <label>Delpay:</label>
+                            <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay} required>
+                              <DropdownToggle caret value="" required>{day}</DropdownToggle>
+                              <DropdownMenu style={ droupDownStyle }>
+                                <DropdownItem value="" onClick={() => setDay("null") }>null</DropdownItem>
+                                {
+                                  days.map((value) => {
+                                    return <DropdownItem onClick={() => setDay(value) }>{value}</DropdownItem>
+                                  })
+                                }
+                              </DropdownMenu>
+                            </Dropdown>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    }
                   <Row>
                     <Col>
                       <FormGroup>

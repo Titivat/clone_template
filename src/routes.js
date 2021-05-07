@@ -19,6 +19,7 @@
 import {
   ViewEvent,
   NewEvent,
+  ViewImages
 } from 'views'
 
 var routes = [
@@ -27,6 +28,13 @@ var routes = [
     name: "View Event",
     icon: "tim-icons icon-chart-pie-36",
     component: ViewEvent,
+    layout: "/admin",
+  },
+  {
+    path: "/view-image",
+    name: "Images",
+    icon: "tim-icons icon-image-02",
+    component: ViewImages,
     layout: "/admin",
   },
   {

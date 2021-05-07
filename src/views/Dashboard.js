@@ -183,7 +183,7 @@ function Dashboard(props) {
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-send text-success" /> 12,100K
                 </CardTitle>
-              </CardHeader>
+              </CardHeader>T
               <CardBody>
                 <div className="chart-area">
                   <Line

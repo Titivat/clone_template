@@ -7,3 +7,4 @@ export { default as Typography } from './Typography';
 export { default as UserProfile } from './UserProfile';
 export { default as NewEvent }  from './NewEvent';
 export { default as ViewEvent } from './ViewEvent';
+export { default as ViewImages } from './ViewImages';
