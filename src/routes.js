@@ -32,7 +32,7 @@ var routes = [
   },
   {
     path: "/view-image",
-    name: "Images",
+    name: "File repository",
     icon: "tim-icons icon-image-02",
     component: ViewImages,
     layout: "/admin",

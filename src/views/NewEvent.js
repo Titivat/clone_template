@@ -36,7 +36,6 @@ import {
   Col,
 } from "reactstrap";
 
-
 function NewEvent() {
   const range = (start, end) => {
     return Array(end - start + 1).fill().map((_, idx) => start + idx)
@@ -66,6 +65,8 @@ function NewEvent() {
   const minutes = range(0, 59);
   const secounds = range(0, 59);
 
+  //const [comboBoxData, setComboBoxData] = useState(["Specify inactive by period", "Specify by date"]);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [switchStage, setSwitchStage] = useState(false);
@@ -84,9 +85,6 @@ function NewEvent() {
 
   const [dropdownOpenMin, setdropdownOpenMin] = useState(false);
   const toggleOpenMin = () => setdropdownOpenMin(prevState => !prevState);
-
-  const [dropdownOpenSec, setdropdownOpenSec] = useState(false);
-  const toggleOpenSec = () => setdropdownOpenSec(prevState => !prevState);
 
   const droupDownStyle = { height: "200px",overflowY: "scroll"}
 
@@ -339,21 +337,6 @@ function NewEvent() {
                               {
                                 minutes.map((value) => {
                                   return <DropdownItem onClick={() => setMinute(value) }>{value}</DropdownItem>
-                                })
-                              }
-                            </DropdownMenu>
-                          </Dropdown>
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="1.5">
-                        <FormGroup>
-                        <label>Second:</label>
-                        <Dropdown isOpen={dropdownOpenSec} toggle={toggleOpenSec}>
-                            <DropdownToggle caret>{secound}</DropdownToggle>
-                            <DropdownMenu style={ droupDownStyle }>
-                              {
-                                secounds.map((value) => {
-                                  return <DropdownItem onClick={() => setSecound(value) }>{value}</DropdownItem>
                                 })
                               }
                             </DropdownMenu>

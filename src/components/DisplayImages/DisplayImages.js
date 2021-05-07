@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 
 // reactstrap components
 import {
@@ -33,6 +33,7 @@ import {
 function DisplayImages() {
   const [eventList, setEventList] = useState([]);
   const [isLoading, setIsLoading] = useState( false );
+  const inputEl = useRef(0);
 
   useEffect( () => {
     handleChangedata();
@@ -66,6 +67,19 @@ function DisplayImages() {
     }
   }
 
+  const onHover = ( id ) => {
+    var mydisplay = document.getElementById( id );
+    const value = mydisplay.style.display;
+    if (value === 'block') {
+      mydisplay.style.display = 'none';
+      return;
+    }
+    mydisplay.style.display = 'block';
+    //console.log("Am I here?")
+    //inputEl.current.style.display = "";
+    //inputEl.current.style.background = "red";
+  }
+
   return (
     <>
       <div className="content">
@@ -74,19 +88,22 @@ function DisplayImages() {
           <Col lg="12" md="12">
             <Card style={{height:"100vh"}} className="card-tasks">
               <CardHeader>
-                <h6 className="title d-inline">Images({eventList.length})</h6>
+                <h6 className="title d-inline">Files ({eventList.length}) </h6>
               </CardHeader>
               <CardBody>
                 <div style={{ height: "80vh",overflowY: "scroll"}} className="table-responsive">
                   <Table>
+                    <thead>
+                      <td>Name</td>
+                      <td>Type</td>
+                      <td>Last Modified</td>
+                    </thead>
                     <tbody style={{ height: "200px",overflowY: "scroll"}}>
                       {
                         eventList.map( (event) => {
-                          return (<tr key={ event.name }>
+                          return (<><tr onClick={() => onHover( event.name) } key={ event.name }>
                                     <td>
-                                      <a href={ event.url}  target={"_blank"} className="title" rel="noreferrer">{ event.name }</a>
-                                    </td>
-                                    <td className="td-actions text-right">
+                                      <a className="title"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.name }</a>
                                       <Button
                                         color="link"
                                         id="tooltip217595172"
@@ -96,7 +113,15 @@ function DisplayImages() {
                                         <i className="tim-icons" />
                                       </Button>
                                     </td>
+                                    <td className="td-actions text-left">
+                                      Type
+                                    </td>
+                                    <td className="td-actions text-left">
+                                      Last Modified
+                                    </td>
                                   </tr>
+                                  <tr><img id={ event.name } ref={inputEl} style={{display:"none",width: "400px"}} src={ event.url} ></img></tr>
+                                  </>
                           )
                       })
                       }
