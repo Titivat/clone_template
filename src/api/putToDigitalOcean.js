@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-export default function putToDigitalOcean( path, data){
+export default async function putToDigitalOcean( path, data){
     try {
-        let response = axios({
+        let response = await axios({
             method: 'put',
             url: `${path}`,
             data: data,

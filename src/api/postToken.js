@@ -1,9 +1,9 @@
 import {API_PATH_NAME} from "./apiPath"
 const axios = require('axios');
 
-export default function postToken( path, data , token ){
+export default async function postToken( path, data , token ){
     try {
-        let response = axios({
+        let response = await axios({
             method: 'post',
             url: `${API_PATH_NAME}${path}`,
             data: data,

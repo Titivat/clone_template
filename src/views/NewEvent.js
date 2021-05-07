@@ -104,6 +104,14 @@ function NewEvent() {
     }
   }
 
+  const checkTime = () => {
+    if( isNaN(hour) || isNaN( minute) || isNaN( secounds ) ){
+      setHour(0);
+      setMinute(0);
+      setSecound(0);
+    }
+  }
+
   const loading = ( isLoading ) => {
     if (isLoading) {
       setIsLoading(true)
@@ -112,22 +120,43 @@ function NewEvent() {
     }
   }
 
+  const uploadeFile = async ( token ) => {
+    const dataResponse = []
+
+    await Promise.all(files.map( async ( item ) => {
+      const data = {
+        "owner":1,
+        "file_name": item[0].name,
+        "file_upload_url":"a",
+        "file_download_url":"a"
+      }
+
+      const response = await API.postToken('/api/file/', data, token);
+      const responseUrl = response.data.file_upload_url;
+
+      const dataFile = item[0];
+      const responseFromDigital = await API.putToDigitalOcean( responseUrl, dataFile);
+
+      if( responseFromDigital.status === 200){
+        dataResponse.push( response.data );
+      }
+    }))
+
+    return dataResponse;
+  }
+
   const handleSubmit = async ( evt ) => {
     evt.preventDefault();
 
     loading(true);
 
-    if(isNaN(day) && isNaN( year ) ){
-      alert("Your day is not selected");
+    if(isNaN(day) || isNaN( year ) ){
+      alert("Your day or year is not selected");
       loading( false );
       return
     }
 
-    if( isNaN(hour) && isNaN( minute) && isNaN( secounds ) ){
-      setHour(0);
-      setMinute(0);
-      setSecound(0);
-    }
+    checkTime();
 
     const data = {
       "owner": 1,
@@ -142,32 +171,13 @@ function NewEvent() {
     try{
       if( files !== null ){
         const token = localStorage.getItem("token");
-        const dataResponse = []
 
-        await files.map( async ( item ) => {
-          const data = {
-            "owner":1,
-            "file_name": item[0].name,
-            "file_upload_url":"a",
-            "file_download_url":"a"
-          }
+        //send file
+        const dataResponse = await uploadeFile( token );
 
-          const response = await API.postToken('/api/file/', data, token);
-          const responseUrl = response.data.file_upload_url;
-
-          const dataFile = item[0];
-          const responseFromDigital = await API.putToDigitalOcean( responseUrl, dataFile);
-
-          if( responseFromDigital.status === 200){
-            console.log( "status: "  + responseFromDigital.status)
-            dataResponse.push( response.data );
-          }
-
-        })
-
-        console.log( "handleSendMail:"  )
         data.file_list =  dataResponse
-        console.log( dataResponse )
+
+        console.log( dataResponse[0] )
         await  handleSendMail( data );
       }
 
@@ -247,6 +257,7 @@ function NewEvent() {
                       </FormGroup>
                     </Col>
                   </Row>
+                  <h3 style={{margin:"0"}}>Time</h3>
                   <Row>
                     <Col className="pr-md-1" md="1.5">
                       <FormGroup style={{margin:"0 15px"}}>
