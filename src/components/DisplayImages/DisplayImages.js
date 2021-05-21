@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect} from "react";
 
 // reactstrap components
 import {
@@ -33,7 +33,6 @@ import {
 function DisplayImages() {
   const [eventList, setEventList] = useState([]);
   const [isLoading, setIsLoading] = useState( false );
-  const inputEl = useRef(0);
 
   useEffect( () => {
     handleChangedata();
@@ -103,24 +102,26 @@ function DisplayImages() {
                         eventList.map( (event) => {
                           return (<><tr onClick={() => onHover( event.name) } key={ event.name }>
                                     <td>
-                                      <a className="title"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.name }</a>
-                                      <Button
-                                        color="link"
-                                        id="tooltip217595172"
-                                        title=""
-                                        type="button"
-                                      >
-                                        <i className="tim-icons" />
-                                      </Button>
-                                    </td>
-                                    <td className="td-actions text-left">
-                                      Type
-                                    </td>
-                                    <td className="td-actions text-left">
-                                      Last Modified
-                                    </td>
-                                  </tr>
-                                  <tr><img id={ event.name } ref={inputEl} style={{display:"none",width: "400px"}} src={ event.url} ></img></tr>
+                                        <a href={event.name} className="title"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.name }</a>
+                                        <Button
+                                          color="link"
+                                          id="tooltip217595172"
+                                          title=""
+                                          type="button"
+                                        >
+                                          <i className="tim-icons" />
+                                        </Button>
+                                      </td>
+                                      <td className="td-actions text-left">
+                                        Type
+                                      </td>
+                                      <td className="td-actions text-left">
+                                        Last Modified
+                                      </td>
+                                    </tr>
+                                    <tr >
+                                      <img id={ event.name } alt={ event.name } style={{display:"none",width: "400px"}} src={ event.url} ></img>
+                                    </tr>
                                   </>
                           )
                       })

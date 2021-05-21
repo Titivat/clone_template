@@ -55,6 +55,8 @@ function NewEvent() {
   const [minute, setMinute] = useState("Minute ⬇");
   const [secound, setSecound] = useState("Second ⬇");
 
+  const [delaySendDate, setDelaySendDate] = useState("Delay by set date ⬇");
+
   const monthToDay = { 1: "31", 2: "28", 3: "31", 4: '30', 5: '31', 6: "30", 7: "31", 8: '31', 9: '30', 10: '31', 11: '30', 12: '31' }
   const days = range(1, monthToDay[month]);
   const months = range(1, 12);
@@ -85,6 +87,9 @@ function NewEvent() {
 
   const [dropdownOpenMin, setdropdownOpenMin] = useState(false);
   const toggleOpenMin = () => setdropdownOpenMin(prevState => !prevState);
+
+  const [dropdownOpenPick, setdropdownOpenPick] = useState(false);
+  const toggleDropdownOpenPick = () => setdropdownOpenPick(prevState => !prevState);
 
   const droupDownStyle = { height: "200px",overflowY: "scroll"}
 
@@ -258,12 +263,27 @@ function NewEvent() {
                   </Row>
                   <div style={{display:"flex"}}>
                   <h3 style={{margin:"0 10px 0 0"}}>Time</h3>
-                  <input style={{margin:"10px"}} type="checkbox"
-                         id="switch" name="switch"
-                         value={switchStage}
-                         onChange={ () => { setSwitchStage( !switchStage); console.log(switchStage)}}
-                    />
-                  <h4 style={{margin:"5px 0 0 -5px"}}>by date</h4>
+                    <FormGroup>
+                    <Dropdown  isOpen={dropdownOpenPick} toggle={toggleDropdownOpenPick} >
+                        {/* <DropdownToggle caret>Delay by set date ⬇</DropdownToggle> */}
+                        <DropdownToggle caret>{  delaySendDate }</DropdownToggle>
+                        <DropdownMenu style={{height:"200%"}} >
+                            <DropdownItem style={{color: "black"}} onClick={() => {
+                              setSwitchStage( false )
+                              setDelaySendDate("Delay by set date")
+                              }
+                            }>
+                              Delay by set date
+                            </DropdownItem>
+                            <DropdownItem style={{color: "black"}} onClick={() => {
+                              setSwitchStage( true )
+                              setDelaySendDate("Delay by inactive date")
+                              }}>
+                              Delay by inactive date
+                            </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </FormGroup>
                   </div>
                   { (switchStage)?
                     <Row>
