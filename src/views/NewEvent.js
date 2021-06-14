@@ -265,7 +265,6 @@ function NewEvent() {
                   <h3 style={{margin:"0 10px 0 0"}}>Time</h3>
                     <FormGroup>
                     <Dropdown  isOpen={dropdownOpenPick} toggle={toggleDropdownOpenPick} >
-                        {/* <DropdownToggle caret>Delay by set date ⬇</DropdownToggle> */}
                         <DropdownToggle caret>{  delaySendDate }</DropdownToggle>
                         <DropdownMenu style={{height:"200%"}} >
                             <DropdownItem style={{color: "black"}} onClick={() => {

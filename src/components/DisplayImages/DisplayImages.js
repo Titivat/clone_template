@@ -102,7 +102,7 @@ function DisplayImages() {
                         eventList.map( (event) => {
                           return (<><tr onClick={() => onHover( event.name) } key={ event.name }>
                                     <td>
-                                        <a href={event.name} className="title"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.name }</a>
+                                        <a className="title"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.name }</a>
                                         <Button
                                           color="link"
                                           id="tooltip217595172"
