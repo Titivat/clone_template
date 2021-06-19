@@ -93,7 +93,7 @@ function EventDisplay() {
                           <label>instagram id:</label>
                           <Input
                             type="text"
-                            defaultValue={instagram_id}
+                            defaultValue={(instagram_id === "no_instragram_id" | instagram_id === "no_twitter_id") ? "no instragram id selected":instagram_id }
                             disabled
                           />
                         </FormGroup>
@@ -103,7 +103,7 @@ function EventDisplay() {
                         <label>twitter id:</label>
                         <Input
                           type="text"
-                          defaultValue={twitter_id}
+                          defaultValue={ (instagram_id === "no_instragram_id" | instagram_id === "no_twitter_id") ? "no twitter id selected":twitter_id}
                           disabled
                         />
                       </FormGroup>

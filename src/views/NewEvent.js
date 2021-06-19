@@ -175,9 +175,9 @@ function NewEvent() {
       "update_date": true,
       "login_date": Func.toIso(day, month, year, hour, minute, secound),
       "update_twitter": twitterId ? true : false,
-      "twitter_id": twitterId,
+      "twitter_id": !twitterId ? "no_twitter_id" :twitterId,
       "update_instagram": instagramId ? true : false,
-      "instagram_id": instagramId,
+      "instagram_id": !instagramId ? "no_instragram_id" :instagramId,
     }
 
     try{
