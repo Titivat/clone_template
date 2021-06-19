@@ -150,10 +150,7 @@ function NewEvent() {
     return dataResponse;
   }
 
-  const handleSubmit = async ( evt ) => {
-    evt.preventDefault();
-
-    loading(true);
+  const uploadedFileWithDelay = async () =>{
 
     if(isNaN(day) || isNaN( year ) ){
       alert("Your day or year is not selected");
@@ -193,6 +190,22 @@ function NewEvent() {
     }catch (err) {
       alert("Error " + err.message);
     }
+  }
+
+  const uploadeByDeath = async () => {
+    console.log("Hello world")
+  }
+
+  const handleSubmit = async ( evt ) => {
+    evt.preventDefault();
+
+    loading(true);
+    if( delaySendDate === "Delay by set date" ||delaySendDate === "Delay by set date ⬇"){
+      await uploadeByDeath();
+    }else if(delaySendDate === "Delay by inactive date"){
+      await uploadedFileWithDelay();
+    }
+
 
     loading(false);
   }
