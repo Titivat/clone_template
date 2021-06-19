@@ -26,12 +26,14 @@ import {
   Table,
   Row,
   Col,
+  Input,
 } from "reactstrap";
 
-//import * as API from '../../api'
+import * as API from '../../api'
 
 function DisplayImages() {
   const [eventList, setEventList] = useState([]);
+  const [tempList, setTempList] = useState([]);
   const [isLoading, setIsLoading] = useState( false );
 
   useEffect( () => {
@@ -41,25 +43,22 @@ function DisplayImages() {
   const handleChangedata = async () => {
     try{
       setIsLoading( true );
-      setEventList(
-          [
-              {
-                  url:"https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg",
-                  name: "image1"
-              },
-              {
-                url:"https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg",
-                name: "image2"
-            },
-            {
-                url:"https://jssors8.azureedge.net/demos/image-slider/img/faded-monaco-scenery-evening-dark-picjumbo-com-image.jpg",
-                name: "image3"
-            },
-          ]
-      )
-      //const token = localStorage.getItem("token");
-      //const response = await API.getWithToken('/api/mail/', token)
-      //setEventList( response.data )
+      const token = localStorage.getItem("token");
+      const reponse = await API.getWithToken('/api/file/', token )
+      console.log("hello world")
+      console.log(reponse.data)
+
+      const data = reponse.data
+      var setObj = new Set();
+      var result = data.reduce((acc,item)=>{
+        if(!setObj.has(item.file_name)){
+          setObj.add(item.file_name)
+          acc.push(item)
+        }
+        return acc;
+      },[]);
+      setTempList(result)
+      setEventList(result)
       setIsLoading( false );
     }catch (err) {
       alert("Error " + err.message);
@@ -74,15 +73,37 @@ function DisplayImages() {
       return;
     }
     mydisplay.style.display = 'block';
-    //console.log("Am I here?")
-    //inputEl.current.style.display = "";
-    //inputEl.current.style.background = "red";
+  }
+
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = eventList.filter((data) => {
+      return data.file_name.search(value) != -1;
+    });
+    setEventList(result);
+    if(eventList.length === 0 | value === ""){
+      setEventList(tempList);
+    }
+
   }
 
   return (
     <>
       <div className="content">
         {(isLoading)&& <p style={{textAlign:"center", color:"red"}}>Loading</p>}
+        <Row>
+          <Col>
+            <Card>
+              <Input
+                type="text"
+                placeholder="search"
+                onChange={ (event) => handleSearch(event)}
+              />
+            </Card>
+          </Col>
+        </Row>
         <Row>
           <Col lg="12" md="12">
             <Card style={{height:"100vh"}} className="card-tasks">
@@ -94,15 +115,13 @@ function DisplayImages() {
                   <Table>
                     <thead>
                       <td>Name</td>
-                      <td>Type</td>
-                      <td>Last Modified</td>
                     </thead>
                     <tbody style={{ height: "200px",overflowY: "scroll"}}>
                       {
                         eventList.map( (event) => {
-                          return (<><tr onClick={() => onHover( event.name) } key={ event.name }>
+                          return (<><tr onClick={() => onHover( event.file_name) } key={ event.file_name }>
                                     <td>
-                                        <a className="title"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.name }</a>
+                                        <a className="title" rel="noreferrer"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.file_name }</a>
                                         <Button
                                           color="link"
                                           id="tooltip217595172"
@@ -112,15 +131,9 @@ function DisplayImages() {
                                           <i className="tim-icons" />
                                         </Button>
                                       </td>
-                                      <td className="td-actions text-left">
-                                        Type
-                                      </td>
-                                      <td className="td-actions text-left">
-                                        Last Modified
-                                      </td>
                                     </tr>
                                     <tr >
-                                      <img id={ event.name } alt={ event.name } style={{display:"none",width: "400px"}} src={ event.url} ></img>
+                                      <img id={ event.file_name } alt={ event.file_download_url } style={{display:"none",width: "400px"}} src={ event.file_download_url} ></img>
                                     </tr>
                                   </>
                           )

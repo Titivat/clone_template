@@ -1,6 +1,6 @@
 
-import React, { useContext } from "react";
-
+import React, { useContext, useState } from "react";
+import * as API  from '../../api';
 // reactstrap components
 import {
   // Button,
@@ -12,6 +12,7 @@ import {
   Input,
   Row,
   Col,
+  Button,
 } from "reactstrap";
 
 import { SelectEvent } from '../../contexts/SeletedEvent';
@@ -37,8 +38,39 @@ function EventDisplay() {
   const minute = date.getMinutes();
   const secound = date.getSeconds();
 
+  const [titleEdit, setTitleEdit ] = useState(subject);
+  const [descriptionEdit, setDescriptionEdit] = useState(message);
+  const [shareToEdit, setShareToEdit] = useState(reciepient);
+  const [dayEdit, setDayEdit] = useState(day);
+  const [monthEdit, setMonthEdit] = useState(month);
+  const [yearEdit, setYearEdit] = useState(year);
+  const [hourEdit, setHourEdit] = useState(hour);
+  const [minuteEdit, setMinuteEdit] = useState();
+  const [secoundEdit, setSecoundEdit] = useState(minute);
+  const [igId, setIgId] = useState(instagram_id);
+  const [twitterId, setTwitterId] = useState(twitter_id);
+
   const handleChagePage = () => {
     setOnEventList( true );
+  }
+
+  const handleEdit = async () => {
+    console.log("I am going to edit")
+    console.log(titleEdit)
+    console.log(descriptionEdit)
+    console.log(shareToEdit)
+    console.log(dayEdit)
+    console.log(monthEdit)
+    console.log(yearEdit)
+    console.log(hourEdit)
+    console.log(minuteEdit)
+    console.log(secoundEdit)
+    console.log(igId)
+    console.log(twitterId)
+    console.log(selectEvent)
+    const token = localStorage.getItem("token");
+    const id = selectEvent.id
+    //await API.putWIthToken(`api/mail/${id}/`, selectEvent,token)
   }
 
   return (
@@ -60,7 +92,7 @@ function EventDisplay() {
                         <Input
                           type="text"
                           defaultValue={shareTo}
-                          disabled
+                          onChange={(event)=> setShareToEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -70,7 +102,7 @@ function EventDisplay() {
                         <Input
                           type="text"
                           defaultValue={title}
-                          disabled
+                          onChange={(event)=> setTitleEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -82,7 +114,7 @@ function EventDisplay() {
                         <Input
                           type="textarea"
                           defaultValue={description}
-                          disabled
+                          onChange={(event)=> setDescriptionEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -93,8 +125,8 @@ function EventDisplay() {
                           <label>instagram id:</label>
                           <Input
                             type="text"
-                            defaultValue={(instagram_id === "no_instragram_id" | instagram_id === "no_twitter_id") ? "no instragram id selected":instagram_id }
-                            disabled
+                            defaultValue={(instagram_id === "no_instragram_id" | instagram_id === "no_twitter_id") ? "no_instragram_id":instagram_id }
+                            onChange={(event) => setIgId(event.target.value)}
                           />
                         </FormGroup>
                     </Col>
@@ -103,8 +135,8 @@ function EventDisplay() {
                         <label>twitter id:</label>
                         <Input
                           type="text"
-                          defaultValue={ (instagram_id === "no_instragram_id" | instagram_id === "no_twitter_id") ? "no twitter id selected":twitter_id}
-                          disabled
+                          defaultValue={ (instagram_id === "no_instragram_id" | instagram_id === "no_twitter_id") ? "no_twitter_id":twitter_id}
+                          onChange={(event) => setTwitterId(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -116,7 +148,7 @@ function EventDisplay() {
                         <Input
                           type="text"
                           defaultValue={day}
-                          disabled
+                          onChange={(event) => setDayEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -126,7 +158,7 @@ function EventDisplay() {
                       <Input
                           type="text"
                           defaultValue={month}
-                          disabled
+                          onChange={(event) => setMonthEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -136,7 +168,7 @@ function EventDisplay() {
                       <Input
                           type="text"
                           defaultValue={year}
-                          disabled
+                          onChange={(event) => setYearEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -146,7 +178,7 @@ function EventDisplay() {
                       <Input
                           type="text"
                           defaultValue={hour}
-                          disabled
+                          onChange={(event) => setHourEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -156,7 +188,7 @@ function EventDisplay() {
                       <Input
                           type="text"
                           defaultValue={minute}
-                          disabled
+                          onChange={(event) => setMinuteEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -166,7 +198,7 @@ function EventDisplay() {
                       <Input
                           type="text"
                           defaultValue={secound}
-                          disabled
+                          onChange={(event) => setSecoundEdit(event.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -189,7 +221,9 @@ function EventDisplay() {
                   </Row>
                 </Form>
               </CardBody>
+              <Button className="btn-fill" onClick={handleEdit} color="primary" type="submit">Edit</Button>
             </Card>
+
           </Col>
         </Row>
       </div>
