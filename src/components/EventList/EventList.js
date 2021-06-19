@@ -48,7 +48,7 @@ function EventList() {
       setIsLoading( true );
       const token = localStorage.getItem("token");
       const response = await API.getWithToken('/api/mail/', token)
-      setEventList( response.data )
+      setEventList( response.data.reverse() )
       setIsLoading( false );
     }catch (err) {
       alert("Error " + err.message);

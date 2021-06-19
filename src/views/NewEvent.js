@@ -55,7 +55,10 @@ function NewEvent() {
   const [minute, setMinute] = useState("Minute ⬇");
   const [secound, setSecound] = useState("Second ⬇");
 
-  const [delaySendDate, setDelaySendDate] = useState("Delay by set date ⬇");
+  const [instagramId, setInstragramId] = useState("");
+  const [twitterId, setTwitterId] = useState("");
+
+  const [delaySendDate, setDelaySendDate] = useState("Delay by checking inactive social media ⬇");
 
   const monthToDay = { 1: "31", 2: "28", 3: "31", 4: '30', 5: '31', 6: "30", 7: "31", 8: '31', 9: '30', 10: '31', 11: '30', 12: '31' }
   const days = range(1, monthToDay[month]);
@@ -66,6 +69,7 @@ function NewEvent() {
   const hours = range(0, 23);
   const minutes = range(0, 59);
   const secounds = range(0, 59);
+  const  tempYear = new Date().getFullYear() + 100
 
   //const [comboBoxData, setComboBoxData] = useState(["Specify inactive by period", "Specify by date"]);
 
@@ -167,7 +171,13 @@ function NewEvent() {
       "send_on": Func.toIso(day, month, year, hour, minute, secound),
       "reciepient": shareTo,
       "sent": false,
-      "file_list": []
+      "file_list": [],
+      "update_date": true,
+      "login_date": Func.toIso(day, month, year, hour, minute, secound),
+      "update_twitter": twitterId ? true : false,
+      "twitter_id": twitterId,
+      "update_instagram": instagramId ? true : false,
+      "instagram_id": instagramId,
     }
 
     try{
@@ -193,19 +203,23 @@ function NewEvent() {
   }
 
   const uploadeByDeath = async () => {
-    console.log("Hello world")
+    setDay( 1 )
+    setMonth( 1 )
+    setYear( tempYear )
+    await uploadedFileWithDelay();
   }
 
   const handleSubmit = async ( evt ) => {
     evt.preventDefault();
 
     loading(true);
-    if( delaySendDate === "Delay by set date" ||delaySendDate === "Delay by set date ⬇"){
+    if( !switchStage ){
+      console.log("hello switchStage uploadeByDeath")
       await uploadeByDeath();
-    }else if(delaySendDate === "Delay by inactive date"){
+    }else if(switchStage){
+      console.log("hello switchStage uploadedFileWithDelay")
       await uploadedFileWithDelay();
     }
-
 
     loading(false);
   }
@@ -220,6 +234,8 @@ function NewEvent() {
 
     if( responseStatus === 200 || responseStatus === 201 ){
       alert("Uploade sucesfull");
+    }else{
+      alert("please press upload again");
     }
 
   }
@@ -282,16 +298,16 @@ function NewEvent() {
                         <DropdownMenu style={{height:"200%"}} >
                             <DropdownItem style={{color: "black"}} onClick={() => {
                               setSwitchStage( false )
-                              setDelaySendDate("Delay by set date")
+                              setDelaySendDate("Delay by checking inactive social media")
                               }
                             }>
-                              Delay by set date
+                              Delay by checking inactive social media
                             </DropdownItem>
                             <DropdownItem style={{color: "black"}} onClick={() => {
                               setSwitchStage( true )
-                              setDelaySendDate("Delay by inactive date")
+                              setDelaySendDate("Delay by set date")
                               }}>
-                              Delay by inactive date
+                              Delay by set date
                             </DropdownItem>
                         </DropdownMenu>
                       </Dropdown>
@@ -377,20 +393,20 @@ function NewEvent() {
                       </Col>
                     </Row>
                     : <Row>
-                        <Col className="pr-md-1" md="1.5">
+                        <Col className="pr-md-1" md="12">
                           <FormGroup style={{margin:"0 15px 10px"}}>
-                            <label>Delpay:</label>
-                            <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay} required>
-                              <DropdownToggle caret value="" required>{day}</DropdownToggle>
-                              <DropdownMenu style={ droupDownStyle }>
-                                <DropdownItem value="" onClick={() => setDay("null") }>null</DropdownItem>
-                                {
-                                  days.map((value) => {
-                                    return <DropdownItem onClick={() => setDay(value) }>{value}</DropdownItem>
-                                  })
-                                }
-                              </DropdownMenu>
-                            </Dropdown>
+                            <label>Instragram id:</label>
+                            <Input
+                              type="text"
+                              value={instagramId}
+                              onChange={e => setInstragramId(e.target.value)}
+                            />
+                            <label>Twitter id:</label>
+                            <Input
+                              type="text"
+                              value={twitterId}
+                              onChange={e => setTwitterId(e.target.value)}
+                            />
                           </FormGroup>
                         </Col>
                       </Row>
@@ -399,9 +415,9 @@ function NewEvent() {
                     <Col>
                       <FormGroup>
                       {
-                        (files === null ) ? <p>{"No file selected."}</p> :
+                        (files === null ) ? <p style={{margin: "20px 0 10px 10px"}}>{"No file selected."}</p> :
                         files.map( (file) => {
-                            return <p key={file[0].name }>{ file[0].name }</p>
+                            return <p style={{margin: "20px 0 10px 10px"}} key={file[0].name }>{ file[0].name }</p>
                         })
                       }
                       </FormGroup>

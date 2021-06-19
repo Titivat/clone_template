@@ -64,7 +64,7 @@ function Register(props) {
       const responseStatus = response.status;
 
       if( responseStatus === 201 ){
-        history.push("/admin");
+        history.push("/login");
       }
     }catch (err) {
       alert("Error " + err.message);

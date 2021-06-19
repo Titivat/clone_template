@@ -50,17 +50,18 @@ function Login(props) {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const data = {
-        "username": userName,
-        "password": password,
-    }
+      const data = {
+          "username": userName,
+          "password": password,
+      }
     loading(true);
 
     try{
       const response = await API.post('/auth/jwt/create/', data);
       const responseStatus = response.status;
-      
+
       if( responseStatus === 200 ){
+        console.log(responseStatus)
         localStorage.setItem('token', response.data.access );
         history.push("/admin");
       }
