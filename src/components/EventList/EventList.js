@@ -27,6 +27,7 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
+  Input
 } from "reactstrap";
 
 import { SelectEvent } from '../../contexts/SeletedEvent';
@@ -38,6 +39,7 @@ function EventList() {
   const { setOnEventList } = useContext( OnEventList );
   const [eventList, setEventList] = useState([]);
   const [isLoading, setIsLoading] = useState( false );
+  const [tempList, setTempLisat] = useState();
 
   useEffect( () => {
     handleChangedata();
@@ -48,7 +50,9 @@ function EventList() {
       setIsLoading( true );
       const token = localStorage.getItem("token");
       const response = await API.getWithToken('/api/mail/', token)
-      setEventList( response.data.reverse() )
+      const tempValue = response.data.reverse()
+      setTempLisat( tempValue )
+      setEventList( tempValue )
       setIsLoading( false );
     }catch (err) {
       alert("Error " + err.message);
@@ -66,10 +70,35 @@ function EventList() {
     await handleChangedata();
   }
 
+  const handleSeach = (event) => {
+    let value = event.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = eventList.filter((data) => {
+      return data.subject.search(value) != -1;
+    });
+    setEventList(result);
+    if(eventList.length === 0 | value === ""){
+      setEventList(tempList);
+    }
+  }
+
   return (
     <>
       <div className="content">
         {(isLoading)&& <p style={{textAlign:"center", color:"red"}}>Loading</p>}
+        <Row>
+          <Col lg="12" md="12">
+            <Card>
+              <Input
+                style={{height:"50px"}}
+                type="text"
+                placeholder="search"
+                onChange={(event)=> handleSeach(event.target.value)}
+              />
+            </Card>
+          </Col>
+        </Row>
         <Row>
           <Col lg="12" md="12">
             <Card style={{height:"100vh"}} className="card-tasks">

@@ -183,7 +183,7 @@ function NewEvent() {
     try{
       if( files !== null ){
         const token = localStorage.getItem("token");
-
+        
         const dataResponse = await uploadeFile( token );
 
         data.file_list =  dataResponse

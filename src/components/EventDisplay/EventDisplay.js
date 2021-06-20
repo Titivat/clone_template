@@ -3,7 +3,6 @@ import React, { useContext, useState } from "react";
 import * as API  from '../../api';
 // reactstrap components
 import {
-  // Button,
   Card,
   CardHeader,
   CardBody,
@@ -54,24 +53,6 @@ function EventDisplay() {
     setOnEventList( true );
   }
 
-  const handleEdit = async () => {
-    console.log("I am going to edit")
-    console.log(titleEdit)
-    console.log(descriptionEdit)
-    console.log(shareToEdit)
-    console.log(dayEdit)
-    console.log(monthEdit)
-    console.log(yearEdit)
-    console.log(hourEdit)
-    console.log(minuteEdit)
-    console.log(secoundEdit)
-    console.log(igId)
-    console.log(twitterId)
-    console.log(selectEvent)
-    const token = localStorage.getItem("token");
-    const id = selectEvent.id
-    //await API.putWIthToken(`api/mail/${id}/`, selectEvent,token)
-  }
 
   return (
     <>
@@ -90,6 +71,7 @@ function EventDisplay() {
                       <FormGroup>
                         <label>Correspondent:</label>
                         <Input
+                          style={{height:"50px"}}
                           type="text"
                           defaultValue={shareTo}
                           onChange={(event)=> setShareToEdit(event.target.value)}
@@ -221,9 +203,7 @@ function EventDisplay() {
                   </Row>
                 </Form>
               </CardBody>
-              <Button className="btn-fill" onClick={handleEdit} color="primary" type="submit">Edit</Button>
             </Card>
-
           </Col>
         </Row>
       </div>

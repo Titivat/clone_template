@@ -86,7 +86,14 @@ function DisplayImages() {
     if(eventList.length === 0 | value === ""){
       setEventList(tempList);
     }
+  }
 
+  const checkIfPdf = ( file_name ) => {
+    if(file_name.slice(-1) === 'f' && file_name.slice(-2, -1) === 'd'){
+      return true
+    }else{
+      return false
+    }
   }
 
   return (
@@ -121,7 +128,7 @@ function DisplayImages() {
                         eventList.map( (event) => {
                           return (<><tr onClick={() => onHover( event.file_name) } key={ event.file_name }>
                                     <td>
-                                        <a className="title" rel="noreferrer"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.file_name }</a>
+                                        <a href={checkIfPdf( event.file_name ) && event.file_download_url} target="_blank" className="title" rel="noreferrer"><i style={{margin:"0 10px"}} className="tim-icons icon-single-copy-04" />{ event.file_name }</a>
                                         <Button
                                           color="link"
                                           id="tooltip217595172"
@@ -133,7 +140,9 @@ function DisplayImages() {
                                       </td>
                                     </tr>
                                     <tr >
+                                      { checkIfPdf( event.file_name ) ? <img style={{display:"none",width: "400px"}} id={ event.file_name }></img> :
                                       <img id={ event.file_name } alt={ event.file_download_url } style={{display:"none",width: "400px"}} src={ event.file_download_url} ></img>
+                                      }
                                     </tr>
                                   </>
                           )
