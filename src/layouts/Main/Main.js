@@ -28,8 +28,8 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin"
 function Main(props) {
   const style = {
         display: "flex",
-        justifyContent: "left",
         alignItems: "center",
+        width:"50%",
   };
 
   const buttonStyle = {
@@ -143,166 +143,10 @@ function Main(props) {
       <BackgroundColorContext.Consumer>
       {({ color, changeColor }) => (
         <React.Fragment>
-          <div style={{margin:"7%"}} className="content">
+          <div style={{display: "flex", justifyContent: "center" ,margin:"7%"}} className="content">
+          {/* <img src="https://cdn.discordapp.com/attachments/721230800141549568/856057074366677002/project_presentation__1_-removebg-preview.png"></img> */}
             <Row style={style}>
-              <Col md="7">
-                <Card>
-                <CardHeader>
-                    <h2 style={{textAlign:"center"}} className="description">Try this out</h2>
-                </CardHeader>
-                <CardBody>
-                    <Form
-                    onSubmit={handleSubmit}
-                    >
-                    <Row>
-                    <Col md="12">
-                        <FormGroup>
-                            <label>Share To:</label>
-                            <Input
-                            type="text"
-                            value={shareTo}
-                            onChange={e => setshareTo(e.target.value)}
-                            required
-                            />
-                        </FormGroup>
-                        </Col>
-                        <Col md="12">
-                        <FormGroup>
-                            <label>Title:</label>
-                            <Input
-                            type="text"
-                            value={title}
-                            onChange={e => setTitle(e.target.value)}
-                            required
-                            />
-                        </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md="12">
-                        <FormGroup>
-                            <label>Description:</label>
-                            <Input
-                            type="textarea"
-                            value={description}
-                            onChange={e => setDescription(e.target.value)}
-                            required
-                            />
-                        </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col className="pr-md-1" md="1.5">
-                        <FormGroup style={{margin:"0 15px"}}>
-                            <label>Days:</label>
-                            <Dropdown isOpen={dropdownOpenDay } toggle={toggleOpenDay} required>
-                            <DropdownToggle caret value="" required>{day}</DropdownToggle>
-                            <DropdownMenu required>
-                                <DropdownItem value="" onClick={() => setDay("null") }>null</DropdownItem>
-                                {
-                                days.map((value) => {
-                                    return <DropdownItem onClick={() => setDay(value) }>{value}</DropdownItem>
-                                })
-                                }
-                            </DropdownMenu>
-                            </Dropdown>
-                        </FormGroup>
-                        </Col>
-                        <Col className="px-md-1" md="1.5">
-                        <FormGroup>
-                        <label>Month:</label>
-                        <Dropdown isOpen={dropdownOpenMonth} toggle={toggleOpenMonth} >
-                            <DropdownToggle caret>{month}</DropdownToggle>
-                            <DropdownMenu>
-                                {
-                                months.map((value) => {
-                                    return <DropdownItem onClick={() => setMonth(value) }>{value}</DropdownItem>
-                                })
-                                }
-                            </DropdownMenu>
-                            </Dropdown>
-                        </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="2">
-                        <FormGroup>
-                        <label>Year:</label>
-                        <Dropdown isOpen={dropdownOpenYear} toggle={toggleOpenYear}>
-                            <DropdownToggle caret>{year}</DropdownToggle>
-                            <DropdownMenu>
-                                {
-                                years.map((value) => {
-                                    return <DropdownItem onClick={() => setYear(value) }>{value}</DropdownItem>
-                                })
-                                }
-                            </DropdownMenu>
-                            </Dropdown>
-                        </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="1.5">
-                        <FormGroup>
-                        <label>Hour:</label>
-                        <Dropdown isOpen={dropdownOpenHour} toggle={toggleOpenHour}>
-                            <DropdownToggle caret>{hour}</DropdownToggle>
-                            <DropdownMenu>
-                                {
-                                hours.map((value) => {
-                                    return <DropdownItem onClick={() => setHour(value) }>{value}</DropdownItem>
-                                })
-                                }
-                            </DropdownMenu>
-                            </Dropdown>
-                        </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="1.5">
-                        <FormGroup>
-                        <label>Minutes:</label>
-                        <Dropdown isOpen={dropdownOpenMin} toggle={toggleOpenMin}>
-                            <DropdownToggle caret>{minute}</DropdownToggle>
-                            <DropdownMenu>
-                                {
-                                minutes.map((value) => {
-                                    return <DropdownItem onClick={() => setMinute(value) }>{value}</DropdownItem>
-                                })
-                                }
-                            </DropdownMenu>
-                            </Dropdown>
-                        </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="1.5">
-                        <FormGroup>
-                        <label>Secound:</label>
-                        <Dropdown isOpen={dropdownOpenSec} toggle={toggleOpenSec}>
-                            <DropdownToggle caret>{secound}</DropdownToggle>
-                            <DropdownMenu>
-                                {
-                                secounds.map((value) => {
-                                    return <DropdownItem onClick={() => setSecound(value) }>{value}</DropdownItem>
-                                })
-                                }
-                            </DropdownMenu>
-                            </Dropdown>
-                        </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md="11">
-                        <FormGroup>
-                            <Input style={buttonStyle} color="primary" type="submit" value="Summit" />
-                        </FormGroup>
-                        </Col>
-                    </Row>
-                    </Form>
-                    <Row>
-                    <Col>
-                        <FormGroup>
-                            {(isLoading) && <h4 style={{ textAlign: "center", color:"red"}}>Loading</h4>}
-                        </FormGroup>
-                    </Col>
-                    </Row>
-                </CardBody>
-                </Card>
-              </Col>
-              <Col md="5">
+              <Col md="12">
                 <Card className="card-user">
                 <CardBody>
                     <CardText />
@@ -311,14 +155,13 @@ function Main(props) {
                     <div className="block block-two" />
                     <div className="block block-three" />
                     <div className="block block-four" />
-                    <h3 className="title">Welcome to FutureFile.io</h3>
+                    <h3 className="title">Welcome to TimeCapsule.io</h3>
                     <p className="description">Share files, memories and documents any time in the future</p>
                     </div>
                     <div className="card-description">
-                    <p>Try sending an email at a scheduled time on the left side of the homepage to see how our services work.</p>
                     </div>
                     <div className="card-description">
-                    <p>Or join us by register or loing to be able to do more...</p>
+                    <p className="description" style={{textAlign: "center"}}>Join us by register or loing</p>
                     </div>
                     <div style={{ margin:"30px",display:"flex",  justifyContent: "center", alignItems: "center",}}>
                         <Button onClick={ () => history.push("/login") }>Login</Button>

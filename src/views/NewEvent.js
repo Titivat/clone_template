@@ -58,7 +58,7 @@ function NewEvent() {
   const [instagramId, setInstragramId] = useState("");
   const [twitterId, setTwitterId] = useState("");
 
-  const [delaySendDate, setDelaySendDate] = useState("Delay by checking inactive social media ⬇");
+  const [delaySendDate, setDelaySendDate] = useState("send when I'm gone ⬇");
 
   const monthToDay = { 1: "31", 2: "28", 3: "31", 4: '30', 5: '31', 6: "30", 7: "31", 8: '31', 9: '30', 10: '31', 11: '30', 12: '31' }
   const days = range(1, monthToDay[month]);
@@ -69,7 +69,9 @@ function NewEvent() {
   const hours = range(0, 23);
   const minutes = range(0, 59);
   const secounds = range(0, 59);
-  const  tempYear = new Date().getFullYear() + 100
+  const  tempYear = new Date().getFullYear()
+  const  tempMonth = new Date().getMonth() + 1
+  const  tempDay = new Date().getDate()
 
   //const [comboBoxData, setComboBoxData] = useState(["Specify inactive by period", "Specify by date"]);
 
@@ -157,7 +159,7 @@ function NewEvent() {
   const uploadedFileWithDelay = async () =>{
 
     if(isNaN(day) || isNaN( year ) ){
-      alert("Your day or year is not selected");
+      //alert("Your day or year is not selected");
       loading( false );
       return
     }
@@ -183,7 +185,7 @@ function NewEvent() {
     try{
       if( files !== null ){
         const token = localStorage.getItem("token");
-        
+
         const dataResponse = await uploadeFile( token );
 
         data.file_list =  dataResponse
@@ -198,13 +200,13 @@ function NewEvent() {
       }
 
     }catch (err) {
-      alert("Error " + err.message);
+      //alert("Error " + err.message);
     }
   }
 
   const uploadeByDeath = async () => {
-    setDay( 1 )
-    setMonth( 1 )
+    setDay( tempDay )
+    setMonth( tempMonth )
     setYear( tempYear )
     await uploadedFileWithDelay();
   }
@@ -247,7 +249,7 @@ function NewEvent() {
           <Col md="12">
             <Card>
               <CardHeader>
-                <h2 style={{textAlign:"center"}} className="description">Create new event</h2>
+                <h2 style={{textAlign:"center"}} className="description">Create new capsule</h2>
               </CardHeader>
               <CardBody>
                 <Form
@@ -298,16 +300,16 @@ function NewEvent() {
                         <DropdownMenu style={{height:"200%"}} >
                             <DropdownItem style={{color: "black"}} onClick={() => {
                               setSwitchStage( false )
-                              setDelaySendDate("Delay by checking inactive social media")
+                              setDelaySendDate("send when I'm gone")
                               }
                             }>
-                              Delay by checking inactive social media
+                              send when I'm gone
                             </DropdownItem>
                             <DropdownItem style={{color: "black"}} onClick={() => {
                               setSwitchStage( true )
-                              setDelaySendDate("Delay by set date")
+                              setDelaySendDate("send on date")
                               }}>
-                              Delay by set date
+                              send on date
                             </DropdownItem>
                         </DropdownMenu>
                       </Dropdown>
@@ -407,6 +409,8 @@ function NewEvent() {
                               value={twitterId}
                               onChange={e => setTwitterId(e.target.value)}
                             />
+                            <label>Login</label>
+                            <input style={{margin:"10px 0 10px 10px"}} type="checkbox" />
                           </FormGroup>
                         </Col>
                       </Row>

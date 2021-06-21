@@ -103,7 +103,7 @@ function EventList() {
           <Col lg="12" md="12">
             <Card style={{height:"100vh"}} className="card-tasks">
               <CardHeader>
-                <h6 className="title d-inline">Event({eventList.length})</h6>
+                <h6 className="title d-inline">CAPSULE({eventList.length})</h6>
               </CardHeader>
               <CardBody>
                 <div style={{ height: "80vh",overflowY: "scroll"}} className="table-responsive">

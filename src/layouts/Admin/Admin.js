@@ -73,7 +73,7 @@ function Admin(props) {
             <Sidebar
               routes={routes}
               logo={{
-                text: "FutureFile",
+                text: "TIME CAPSULE",
                 imgSrc: logo,
                 innerLink: '/'
               }}

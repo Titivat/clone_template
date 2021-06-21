@@ -25,7 +25,7 @@ import {
 var routes = [
   {
     path: "/view-event",
-    name: "View Event",
+    name: "View Capsule",
     icon: "tim-icons icon-chart-pie-36",
     component: ViewEvent,
     layout: "/admin",
@@ -39,7 +39,7 @@ var routes = [
   },
   {
     path: "/new-event",
-    name: "Create Event",
+    name: "Create Capsule",
     icon: "tim-icons icon-single-02",
     component: NewEvent,
     layout: "/admin",
